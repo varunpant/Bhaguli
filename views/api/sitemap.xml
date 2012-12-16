@@ -1,0 +1,43 @@
+﻿$def with (posts,pages,tags,archives)
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type="text/xsl" href="/sitemap.xsl"?>
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+	$if posts and len(posts)> 0:
+		$for post in posts:
+			<url>
+				<loc>$:settings.root/posts/$:post.slug</loc>
+				<lastmod>$:post.published_at.strftime("%Y-%m-%dT%H:%M:%Sz")</lastmod>
+				<changefreq>monthly</changefreq>
+				<priority>1.0</priority>
+			</url>
+	
+	$if pages and len(pages)> 0:
+		$for page in pages:
+			<url>
+				<loc>$:settings.root/pages/$:page.slug</loc>
+				<lastmod>$:page.published_at.strftime("%Y-%m-%dT%H:%M:%Sz")</lastmod>
+				<changefreq>yearly</changefreq>
+				<priority>0.8</priority>
+			</url>
+
+	$if tags and len(tags)> 0:
+		$for tag in tags:
+			<url>
+				<loc>$:settings.root/topics/$:tag.slug/1</loc>
+				<changefreq>weekly</changefreq>
+				<priority>0.5</priority>
+			</url>
+
+	$if archives and len(archives)> 0:
+		$for archive in archives:
+			<url>
+				<loc>$:settings.root/archive/1/$:archive.month/$:archive.year</loc>
+				<changefreq>monthly</changefreq>
+				<priority>1.0</priority>
+			</url>
+		<url>
+			<loc>$:settings.root/archive</loc>
+		</url>
+		<url>
+			<loc>$:settings.root</loc>
+		</url>
+</urlset>

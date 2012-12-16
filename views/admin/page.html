@@ -1,0 +1,59 @@
+$def with (page)
+$var title  ="Pages"
+<div class="span12">
+	<ul class="breadcrumb">
+		<li>
+			<a href="#">Administration</a><span class="divider">/</span>
+		</li>
+		<li>
+			<a href="#">Pages</a><span class="divider">/</span>
+		</li>
+		<li>
+			<a href="#">Edit Page</a><span class="divider">/</span>
+		</li>
+		<li class="active">
+			$:page.slug
+		</li>
+	</ul>
+	<form id="frmPage" name="frmage" method="post" action = "" class="form-horizontal">
+	
+		<div class="control-group">
+			<label class="control-label" for="title">TITLE</label>
+			<div class="controls">
+				<input tabindex="1" class="span8" type="text" name="title" id="title" placeholder="Title..." class="box" autofocus="true" value = "$:page.title" />
+			</div>
+		</div>
+
+		<div class="control-group">
+			<label class="control-label" for="slug">SLUG</label>
+			<div class="controls">
+				<input tabindex="2" class="span8" type="text" name="slug" id="slug" placeholder="Slug..." class="box" value = "$:page.slug" AUTOCOMPLETE="OFF" />
+			</div>
+		</div>
+
+		<div class="control-group">
+			<label class="control-label" for="published_at">PUBLISHED ON</label>
+			<div class="controls">
+				<input tabindex="4" class="span8" type="datetime" name="published_at" id="published_at" placeholder="Published on..." class="box" value = "$:page.published_at.strftime("%B %d, %Y")" />
+			</div>
+		</div>
+
+		<div class="control-group">
+			<label class="control-label" for="content">CONTENT</label>
+			<div class="controls">
+				<textarea class="span8" tabindex="3" name="content" id="content" rows="20" cols="150" class="box" placeholder = " Content...">$:page.content</textarea>
+			</div>
+		</div>
+ 
+		
+
+		<div class="form-actions">
+
+			<input name="submit" type="submit" id="submit" tabindex="7" class="btn btn-success btn-large" value="SAVE" />
+			&nbsp; or &nbsp;
+			<input name="cancel" type="button" id="cancel" tabindex="8" onClick="location.href='/admin/pages/1'"  class="btn btn-danger btn-large" value="CANCEL" />
+		</div>
+
+	</form>
+
+</div>

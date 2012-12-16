@@ -1,0 +1,162 @@
+$def with (settings)
+$var title  ="Blog Settings"
+<div class="span12">
+
+	<form id="edit-profile" class="form-horizontal">
+		<div class="row">
+			<div class="span6">
+				<legend>
+					Blog:
+				</legend>
+				<div class="control-group">
+					<label class="control-label" for="blog_title">Blog Title</label>
+					<div class="controls">
+						<input type="text" class="span4" name="blog_title" id="blog_title" placeholder="Blog Title..." value = "$:settings.blog_title" />
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="tag_line">Tagline</label>
+					<div class="controls">
+						<input type="text"  class="span4" name="tag_line" id="tag_line" placeholder="Tagline..." value = "$:settings.tag_line" />
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="meta_keywords">Metakeywords</label>
+					<div class="controls">
+						<input type="text"  class="span4"  name="meta_keywords" id="meta_keywords" placeholder="Metakeywords..." value = "$:settings.meta_keywords"  />
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="meta_description">Metadescription</label>
+					<div class="controls">
+						<input type="text"   class="span4" name="meta_description" id="meta_description" placeholder="Metadescription..." value = "$:settings.meta_description" />
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="meta_description">Posts per Page</label>
+					<div class="controls">
+						<input   type="number"  class="span4"  name="items_per_page" id="items_per_page" placeholder="Posts per Page..." value = "$:settings.items_per_page" />
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="posts_in_home">Posts in Home</label>
+					<div class="controls">
+						<input   type="number"   class="span4" name="posts_in_home" id="posts_in_home" placeholder="Posts in Home..." value = "$:settings.posts_in_home"  />
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="posts_in_home">Cache timeout</label>
+					<div class="controls">
+						<input   type="number"  class="span4"  name="cache_duration_in_seconds" id="cache_duration_in_seconds" placeholder="Cache Duration in Seconds..." value = "$:settings.cache_duration_in_seconds"  />
+					</div>
+				</div>
+
+			</div>
+
+			<div class="span6">
+				<legend>
+					User:
+				</legend>
+				<div class="control-group">
+					<label class="control-label" for="login">Login</label>
+					<div class="controls">
+						<input type="text"   class="span4" name="login" id="login" maxlength = "128" placeholder="Login name...." value = "$:settings.login" />
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="password">Password</label>
+					<div class="controls">
+						<input type="password" class="span4" name="password" id="password" maxlength = "32" placeholder="Password..." value = "$:settings.password" required />
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="user_full_name">Full Name</label>
+					<div class="controls">
+						<input type="text"  class="span4"  name="user_full_name" id="user_full_name" maxlength = "256" placeholder="Full name..." value = "$:settings.user_full_name" />
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="user_short_name">Short Name</label>
+					<div class="controls">
+						<input type="text"   class="span4" name="user_short_name" id="user_short_name" maxlength = "256" placeholder="Short name..." value = "$:settings.user_short_name" />
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="user_email">Email</label>
+					<div class="controls">
+						<input type="email"   class="span4" name="user_email" id="user_email" maxlength = "256" placeholder="Email..." value = "$:settings.user_email" />
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="user_bio">Biography</label>
+					<div class="controls">
+						<textarea tabindex="6"   class="span4" name="user_bio" id="user_bio" rows="10" cols="100" maxlength ="2048" placeholder = " Bio..." value = "$:settings.user_bio" ></textarea>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="span4">
+				<legend>
+					Google:
+				</legend>
+				<div class="control-group">
+					<label class="control-label" for="google_analytics_code">Analytics code</label>
+					<div class="controls">
+						<input type="text" class="span2" name="google_analytics_code" id="google_analytics_code" placeholder="UA-XXXXXXX-X" value = "$:settings.google_analytics_code" />
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="feed_burner_url">Feedburner Url</label>
+					<div class="controls">
+						<input type="text" class="span2"  name="feed_burner_url" id="feed_burner_url" maxlength = "1024" placeholder="Feedburner Url..." value = "$:settings.feed_burner_url" />
+					</div>
+				</div>
+			</div>
+			<div class="span4">
+
+				<legend>
+					Bing:
+				</legend>
+				<div class="control-group">
+					<label class="control-label" for="bing_app_id">App Id</label>
+					<div class="controls">
+						<input type="text" class="span2"  name="bing_app_id" id="bing_app_id" maxlength = "64" placeholder="App Id..." value = "$:settings.bing_app_id" required/>
+
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="root">Root</label>
+					<div class="controls">
+						<input type="text" class="span2"  name="root" id="root" maxlength = "256" placeholder="Root url..." value = "$:settings.root" required/>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="span4">
+
+				<legend>
+					Disqus:
+				</legend>
+				<div class="control-group">
+					<label class="control-label" for="disqus_short_name">Short name</label>
+					<div class="controls">
+						<input type="text"  class="span2" name="disqus_short_name" id="disqus_short_name" maxlength = "256" placeholder="Short name..." value = "$:settings.disqus_short_name" />
+
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+
+		<div class="form-actions">
+			<input name="submit" type="submit" id="submit" class="btn btn-success btn-large" value="SAVE" />
+			&nbsp; or &nbsp;
+			<input name="submit" type="button" id="cancel" class="btn btn-danger btn-large" value="CANCEL" />
+		</div>
+	</form>
+
+</div>

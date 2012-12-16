@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<manifest xmlns="http://schemas.microsoft.com/wlw/manifest/weblog">
+  <weblog>
+    <serviceName>Py Blog</serviceName>
+    <adminUrl>{blog-homepage-url}/admin</adminUrl>
+  </weblog>
+  <options>
+    <clientType>Metaweblog</clientType>
+    <maxCategoryNameLength>256</maxCategoryNameLength>
+    <supportsPostAsDraft>Yes</supportsPostAsDraft>
+    <supportsFileUpload>Yes</supportsFileUpload>
+    <supportsCustomDate>Yes</supportsCustomDate>
+    <supportsCategories>Yes</supportsCategories>
+    <supportsCategoriesInline>Yes</supportsCategoriesInline>
+    <supportsMultipleCategories>Yes</supportsMultipleCategories>
+    <supportsNewCategories>Yes</supportsNewCategories>
+    <supportsNewCategoriesInline>Yes</supportsNewCategoriesInline>
+    <supportsSlug>Yes</supportsSlug>
+    <supportsExcerpt>Yes</supportsExcerpt>
+    <supportsEmbeds>Yes</supportsEmbeds>
+    <supportsPages>Yes</supportsPages>
+    <supportsAutoupdate>Yes</supportsAutoupdate>
+    <requiresXHTML>Yes</requiresXHTML>
+    <supportsExtendedEntries>No</supportsExtendedEntries>
+    <supportsHierarchicalCategories>No</supportsHierarchicalCategories>
+    <supportsKeywords>No</supportsKeywords>
+    <supportsCommentPolicy>No</supportsCommentPolicy>
+    <supportsPingPolicy>No</supportsPingPolicy>
+    <supportsAuthor>No</supportsAuthor>
+    <supportsPassword>No</supportsPassword>
+    <supportsTrackbacks>No</supportsTrackbacks>
+    <supportsPageParent>No</supportsPageParent>
+    <supportsPageOrder>No</supportsPageOrder>
+    <supportsEmptyTitles>No</supportsEmptyTitles>
+    <supportsScripts>No</supportsScripts>
+    <requiresHtmlTitles>No</requiresHtmlTitles>
+  </options>
+</manifest>

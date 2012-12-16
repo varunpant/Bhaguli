@@ -1,0 +1,26 @@
+$def with (posts)
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title>$:settings.user_full_name</title>
+    <subtitle>$:settings.tag_line</subtitle>
+    <link href="$:settings.root/" />
+    <link href="$:settings.root/feed.xml" rel="self" />
+    <id>$:settings.root/</id>
+    <rights>Copyright (c) 2011 $:settings.user_full_name. The content on this feed is licensed under Creative Commons Attribution 3.0 License.</rights>
+    <icon>$:settings.root/static/images/favicon.ico</icon>
+    <updated>$:posts[0].published_at.strftime("%Y-%m-%dT%H:%M:%Sz")</updated>
+    <author><name>$:settings.user_full_name</name><email>$:settings.user_email</email>
+    </author>
+    $for post in posts:
+	    <entry>
+	        <title>$:post.title</title>
+	        <link href="$:settings.root/posts/$:post.slug" rel="alternate" />
+	        <id>$:settings.root/posts/$:post.slug</id>
+	        <published>$:post.published_at.strftime("%Y-%m-%dT%H:%M:%Sz")</published>
+	        <updated>$:post.published_at.strftime("%Y-%m-%dT%H:%M:%Sz")</updated>
+	        <author><name>$:settings.user_full_name</name></author>
+	        <content type="html">$post.content</content> 
+	        $for tag in post.tags:
+	        	<category label="$:tag.title" scheme="$:settings.root/topics/$:tag.title/1" term="$:tag.title"></category>  	              	         
+	    </entry> 
+</feed>

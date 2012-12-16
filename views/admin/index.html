@@ -1,0 +1,150 @@
+$def with (totalPosts, totalPostsPublished, unpublishedPosts,totalPages, totalPagesPublished, unpublishedPages,totalTopics, totalTopicsPublished,totaltopicsUnpublished,unpublishedTopics)
+$var title ="Dashboard"
+<div class="span12">
+	<h3> Blog Posts </h3>
+	<div class="well summary">
+		<ul>
+			<li>
+				<a href="#"><span class="count">$:totalPosts</span> Total Posts</a>
+			</li>
+			<li>
+				<a href="#"><span class="count">$:totalPostsPublished</span>Published Posts</a>
+			</li>
+			<li class="last">
+				<a href="#"><span class="count">$:(totalPosts - totalPostsPublished)</span> Un Published Posts</a>
+			</li>
+		</ul>
+	</div>
+	
+	$if unpublishedPosts:
+		<h4> Un Published Posts </h4>
+		<table class="table table-bordered table-striped">
+			<thead>
+				<tr>
+					<th> TITLE </th>
+					<th> CREATED ON </th>
+					<th> PUBLISHED ON </th>
+					<th> EDIT </th>
+					<th> DELETE </th>
+				</tr>
+			</thead>
+			<tbody>
+				$for post in unpublishedPosts:
+				<tr>
+					<td> <a href="/posts/$:post.slug" class="view-link">$:post.title</a></td>
+					<td> $:post.created_at.strftime("%B %d, %Y") </td>
+					<td> $:post.published_at.strftime("%B %d, %Y") </td>
+					<td><a href="#" class="view-link">EDIT</a></td>
+					<td><a href="#" class="view-link">DELETE</a></td>
+				</tr>
+			</tbody>
+		</table>
+		
+	<h3> Blog Pages </h3>
+	<div class="well summary">
+		<ul>
+			<li>
+				<a href="#"><span class="count">$:totalPages</span> Total Pages</a>
+			</li>
+			<li>
+				<a href="#"><span class="count">$:totalPagesPublished</span>Published Pages</a>
+			</li>
+			<li class="last">
+				<a href="#"><span class="count">$:(totalPages - totalPagesPublished)</span> Un Published Pages</a>
+			</li>
+		</ul>
+	</div>
+	
+	$if unpublishedPages:
+		<h4> Un Published Pages </h4>
+		<table class="table table-bordered table-striped">
+			<thead>
+				<tr>
+					<th> TITLE </th>
+					<th> CREATED ON </th>
+					<th> PUBLISHED ON </th>
+					<th> EDIT </th>
+					<th> DELETE </th>
+				</tr>
+			</thead>
+			<tbody>
+				$for page in unpublishedPages:
+				<tr>
+					<td> <a href="/$:page.slug" class="view-link">$:page.title</a></td>
+					<td> $:page.created_at.strftime("%B %d, %Y") </td>
+					<td> $:page.published_at.strftime("%B %d, %Y") </td>
+					<td><a href="#" class="view-link">EDIT</a></td>
+					<td><a href="#" class="view-link">DELETE</a></td>
+				</tr>
+			</tbody>
+		</table>
+		
+	
+	
+	<h3> Blog Topics </h3>
+	<div class="well summary">
+		<ul>
+			<li>
+				<a href="#"><span class="count">$:totalTopics</span> Total Topics</a>
+			</li>
+			<li>
+				<a href="#"><span class="count">$:totalTopicsPublished</span>Published Topics</a>
+			</li>
+			<li >
+				<a href="#"><span class="count">$:totaltopicsUnpublished</span> Un Published Topics</a>
+			</li>
+			<li class="last">
+				<a href="#"><span class="count">$:(totalTopics -(totalTopicsPublished - totaltopicsUnpublished ))</span>UN REFERENCED Topics</a>
+			</li>
+		</ul>
+	</div>
+	
+
+	$if unpublishedTopics:
+		<h2> Un Published Topics </h2>
+		<table class="table table-bordered table-striped">
+			<thead>
+				<tr>
+					<th> TITLE </th>
+					<th> SLUG </th>
+					<th> POSTS COUNT </th>
+					<th> EDIT </th>
+					<th> DELETE </th>
+				</tr>
+			</thead>
+			<tbody>
+				$for topic in unpublishedTopics
+					<tr>
+						<td><a href="/topics/$:topic.slug/1" class="view-link">$:topic.title</a></td>
+						<td> $:topic.slug </td>
+						<td> $:topic.posts_count </td>
+						<td><a href="#" class="view-link">EDIT</a></td>
+						<td><a href="#" class="view-link">DELETE</a></td>
+					</tr>
+			</tbody>
+		</table>
+	
+	<!-- <div class="pagination">
+	<ul>
+	<li class="disabled">
+	<a href="#">&laquo;</a>
+	</li>
+	<li class="active">
+	<a href="#">1</a>
+	</li>
+	<li>
+	<a href="#">2</a>
+	</li>
+	<li>
+	<a href="#">3</a>
+	</li>
+	<li>
+	<a href="#">4</a>
+	</li>
+	<li>
+	<a href="#">&raquo;</a>
+	</li>
+	</ul>
+	</div> -->
+
+</div>

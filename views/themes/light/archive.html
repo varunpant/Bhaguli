@@ -1,0 +1,24 @@
+$def with (posts,archives)
+$var title = 'Archive'
+
+
+<h4>Recent</h4>
+
+<ul id="recent">
+$for post in posts:	 
+        <li>
+            <div class="time"><i>$:post.published_at.strftime("%B %d, %Y")</i></div>
+            <a class="taggedlink" href="/posts/$:post.slug" rel="bookmark">$:post.title</a>
+        </li>
+
+</ul>	
+
+<h4>Archive</h4>
+
+<ul id="monthly">
+$for post in archives:
+	 <li>
+           <a href="/archives/1/$:post.year/$:post.month" rel="directory">$:post.month  $:post.year &nbsp;&nbsp;($:post.posts_count)</a>
+     </li>
+
+</ul>

@@ -1,0 +1,219 @@
+import  web, calendar
+from services import shared_helper, post_service,tag_service,page_service, settings_service,search_service
+
+
+###############################################################################
+# General Housekeeping ########################################################
+############################################################################### 
+
+blog_settings = settings_service.get_settings()
+start_index = shared_helper.start_index
+safe_number = shared_helper.safe_number
+total_page = shared_helper.total_page
+
+global_settings = {'settings': blog_settings }
+render = web.template.render('views/themes/light', base='base', globals=global_settings)
+
+def notfound(msg):	 
+	raise web.notfound(render.notfound(msg))
+
+def internalerror(msg):
+	raise web.internalerror("Bad, bad server. No donut for you.\n" + msg)
+
+###############################################################################
+# Routes Handlers #############################################################
+############################################################################### 
+
+
+class Index:
+	def GET(self):
+		p = safe_number(web.input(page="1").page) 
+		limit = blog_settings.items_per_page
+		offset = start_index(p, limit)
+		pageCount = total_page(post_service.count_published(), limit) 
+		posts = post_service.get_published(offset, limit)
+		nextLink = "?page=" + str(p + 1) if p < pageCount else None
+		previousLink = "?page=" + str(p - 1) if p > 1 else None 
+
+		return render.index(posts, nextLink, previousLink)
+	
+class PostSlug:
+	def GET(self, slug):
+		post = post_service.get_published_by_slug(slug)
+		if post and post.published_at:
+			return render.post(post)
+		else:
+			return notfound("The requested resource was not found on this server.")
+
+class PageSlug:
+	def GET(self, slug):
+		page = page_service.get_published_by_slug(slug)
+		if page and page.published_at:
+			return render.page(page)
+		else:
+			return notfound("The requested resource was not found on this server.")
+		
+class Topic:
+	def GET(self, slug, page):
+		page = safe_number(page)
+		if page < 1:
+			return notfound("The requested resource was not found on this server.Pages start from 1")
+		tag = tag_service.get_by_slug(slug)
+		if tag:
+			count = post_service.count_published_by_tag(tag.slug)
+			if count < 1:
+				return notfound("No post with this tag was found!")
+			offset = start_index(page,blog_settings.items_per_page)
+			posts = post_service.find_published_by_tag(tag.slug, offset, blog_settings.items_per_page)
+			title = "Topic: " + tag.title  + "(" + str(count) +")"
+			page_count = total_page(count,blog_settings.items_per_page)
+			nextLink = previousLink = None
+			if page < page_count:
+				nextLink = "/archives/" + str(page + 1) 
+			if page > 1 :
+				previousLink = "/archives/" + str(page - 1) 
+			return render.index(posts, nextLink, previousLink) 
+		else:
+			return notfound("The requested tag: " + slug + " was not found.")
+
+class Archives:
+	def GET(self):
+		posts = post_service.find_recent(blog_settings.items_per_page)
+		archives = post_service.get_archives()
+		return render.archive(posts, archives)
+
+class ArchivePage:
+	def GET(self, page):
+		page = safe_number(page)
+		if page < 1:
+			return notfound("The requested resource was not found on this server.Pages start from 1")
+		count = post_service.count_published()
+		if count < 0:
+			return notfound("No archived posts were found.")
+		offset = start_index(page, blog_settings.items_per_page) + blog_settings.posts_in_home
+		posts = post_service.get_published(offset, blog_settings.items_per_page)
+		page_count = total_page(count - blog_settings.posts_in_home, blog_settings.items_per_page)
+		nextLink = previousLink = None
+		if page < page_count:
+			nextLink = "/archives/" + str(page + 1) 
+		if page > 1 :
+			previousLink = "/archives/" + str(page - 1) 
+		
+		return render.index(posts, nextLink, previousLink) 
+
+class ArchivePageYear:
+	def GET(self, page, year):
+		page = safe_number(page)
+		if page < 1:
+			return notfound("The requested resource was not found on this server.Pages start from 1")
+		year = safe_number(year)
+		if year <= 1990:
+			return notfound("The requested resources for year: ' " + str(year) + " ' were not found")
+		count = post_service.count_published()
+		if count < 0:
+			return notfound("No archived posts were found.")
+		offset = start_index(page, blog_settings.items_per_page) + blog_settings.posts_in_home		 
+		posts = post_service.find_published_by_year(year, offset, blog_settings.items_per_page)
+		page_count = total_page(count - blog_settings.posts_in_home, blog_settings.items_per_page)
+		nextLink = previousLink = None
+		if page < page_count:
+			nextLink = "/archives/" + str(page + 1) 
+		if page > 1 :
+			previousLink = "/archives/" + str(page - 1) 
+		return render.index(posts, nextLink, previousLink)
+	
+class ArchivePageYearMonth:
+	def GET(self, page, year, month):
+		page = safe_number(page)
+		if page < 1:
+			return notfound("Incorrect ' Page ', they start from 1")
+		safe_year = safe_number(year)
+		if safe_year <= 1990:
+			return notfound("Incorrect year: ' " + str(year) + " '")
+		safe_month = safe_number(month)
+		if safe_month < 1 or safe_month > 12:
+			return notfound("Incorrect month ' " + str(safe_month) + " '")		 
+		count = post_service.count_published()
+		if count < 0:
+			return notfound("No archived posts were found.")
+		offset = start_index(page, blog_settings.items_per_page) + blog_settings.posts_in_home		 
+		posts = post_service.find_published_by_year_and_month(safe_year, safe_month, offset, blog_settings.items_per_page)
+		page_count = total_page(count - blog_settings.posts_in_home, blog_settings.items_per_page)
+		nextLink = previousLink = None
+		if page < page_count:
+			nextLink = "/archives/" + str(page + 1) 
+		if page > 1 :
+			previousLink = "/archives/" + str(page - 1) 
+		return render.index(posts, nextLink, previousLink)
+
+class ArchivePageYearMonthDay:
+	def GET(self, page, year, month, day):
+		page = safe_number(page)
+		if page < 1:
+			return notfound("Incorrect ' Page ', they start from 1")
+		safe_year = safe_number(year)
+		if safe_year <= 1990:
+			return notfound("Incorrect year: ' " + str(year) + " '")
+		safe_month = safe_number(month)
+		if safe_month < 1 or safe_month > 12:
+			return notfound("The requested resources for the month: ' " + str(safe_month) + " '")		
+		safe_day = safe_number(day)
+		if safe_day < 1 or safe_day > calendar.monthrange(int(year), int(month))[1]:
+			return notfound("Incorrect day: ' " + str(day) + " '")		 
+		count = post_service.count_published()
+		if count < 0:
+			return notfound("No archived posts were found.")
+		offset = start_index(page, blog_settings.items_per_page) + blog_settings.posts_in_home		 
+		posts = post_service.find_published_by_year_month_and_day(safe_year, safe_month, safe_day, offset, blog_settings.items_per_page)
+		page_count = total_page(count - blog_settings.posts_in_home, blog_settings.items_per_page)
+		nextLink = previousLink = None
+		if page < page_count:
+			nextLink = "/archives/" + str(page + 1) 
+		if page > 1 :
+			previousLink = "/archives/" + str(page - 1) 
+		return render.index(posts, nextLink, previousLink)
+		
+class Contact:
+	def GET(self):
+		return render.contact(None, None)
+	
+	def POST(self):
+		msg = ""
+		user_data = web.input()
+		sender = user_data.name.strip() 
+		email = user_data.email.strip() 
+		subject = user_data.subject.strip() 
+		body = user_data.message.strip() 
+		if not shared_helper.IsNotNull(sender):
+			msg = "name, "
+		if not shared_helper.IsNotNull(email) or not shared_helper.validateEmail(email):
+			msg += "email, "
+		if not shared_helper.IsNotNull(subject):
+			msg += "subject, "
+		if not shared_helper.IsNotNull(body):
+			msg += "and message  "
+		if msg == "":
+			sender = sender + "  <" + email + ">"
+			recipient = u'<' + blog_settings.user_email + '>' 
+			try:
+				shared_helper.send_email(sender, recipient, subject, body)
+				msg = "Thank you for contacting me.I will get back to you as soon as I can" 
+			except Exception as e:
+				return internalerror("Error while sending mail." + str(e))
+		else:
+			if msg == "and message  ":
+				msg = "message  "            
+			msg = "There was an error in sending your message! Please enter a valid  " + msg[0:-2]
+		return render.contact(None, msg)
+
+class Search:
+	def GET(self):
+		user_data = web.input()
+		q = user_data.q
+		p = user_data.page 
+		result = search_service.search(q)
+		print result
+		msg = None
+		next = ''
+		previous = ''
+		return render.search(q,result,next,previous,msg)

@@ -1,0 +1,45 @@
+$def with (totalTopics, totalTopicsPublished,totaltopicsUnpublished, topics)
+$var title  ="Topics"
+<div class="span12">
+
+	<div class="well summary">
+		<ul>
+			<li>
+				<a href="#"><span class="count">$:totalTopics</span> Total Topics</a>
+			</li>
+			<li>
+				<a href="#"><span class="count">$:totalTopicsPublished</span>Published Topics</a>
+			</li>
+			<li >
+				<a href="#"><span class="count">$:(totaltopicsUnpublished)</span> Un Published Topics</a>
+			</li>
+			<li class="last">
+				<a href="#"><span class="count">$:(totalTopics -(totalTopicsPublished - totaltopicsUnpublished ))</span>UN REFERENCED Topics</a>
+			</li>
+		</ul>
+	</div>
+
+	<h2> Blog Topics </h2>
+	<table class="table table-bordered table-striped">
+		<thead>
+			<tr>
+				<th> TITLE </th>
+				<th> SLUG </th>
+				<th> POSTS COUNT </th>
+				<th> EDIT </th>
+				<th> DELETE </th>
+			</tr>
+		</thead>
+		<tbody>
+			$for topic in topics
+			<tr>
+				<td><a href="/topics/$:topic.slug/1" class="view-link">$:topic.title</a></td>
+				<td> $:topic.slug </td>
+				<td> $:topic.posts_count </td>
+				<td><a href="#" class="view-link">EDIT</a></td>
+				<td><a href="#" class="view-link">DELETE</a></td>
+			</tr>
+		</tbody>
+	</table>
+
+</div>

@@ -1,0 +1,53 @@
+$def with (totalPosts,totalPostsPublished,posts,nextLink, previousLink)
+$var title  ="Posts"
+<div class="span12">
+	<div class="well summary">
+		<ul>
+			<li>
+				<a href="#"><span class="count">$:totalPosts</span> Total Posts</a>
+			</li>
+			<li>
+				<a href="#"><span class="count">$:totalPostsPublished</span>Published Posts</a>
+			</li>
+			<li class="last">
+				<a href="#"><span class="count">$:(totalPosts - totalPostsPublished)</span> Un Published Posts</a>
+			</li>
+		</ul>
+	</div>
+	<h2> Blog Posts </h2>
+	<table class="table table-bordered table-striped">
+		<thead>
+			<tr>
+				<th> TITLE </th>
+				<th> CREATED ON </th>
+				<th> PUBLISHED ON </th>
+				<th> EDIT </th>
+				<th> DELETE </th>
+			</tr>
+		</thead>
+		<tbody>
+			$for post in posts:
+			<tr>
+				<td> <a href="/posts/$:post.slug" class="view-link">$:post.title</a></td>
+				<td> $:post.created_at.strftime("%B %d, %Y") </td>
+				<td> $:post.published_at.strftime("%B %d, %Y") </td>
+				<td><a href="/admin/posts/edit/$:post.id" class="view-link">EDIT</a></td>
+				<td><a href="/admin/posts/destroy/$:post.id" class="view-link delete">DELETE</a></td>
+			</tr>
+		</tbody>
+	</table>
+	
+	<div class="form-actions"> 
+		<a href="/admin/posts/new" class="btn btn-primary btn-large">NEW</a>
+	</div>
+	<ul class="pager">
+		$if previousLink:
+			<li class="previous">
+				<a href="/admin/posts/$:previousLink">&larr; Newer</a>
+			</li>
+		$if nextLink:
+			<li class="next">
+				<a href="/admin/posts/$:nextLink">Older &rarr;</a>
+			</li>
+	</ul>
+</div>

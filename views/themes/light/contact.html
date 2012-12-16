@@ -1,0 +1,36 @@
+$def with (successMsg,errorMsg)
+$var title = 'Contact me'
+$if successMsg:
+	<p>$:successMsg</p>
+$elif errorMsg:
+	<p>$:errorMsg</p>
+$else:	
+	<h2>Contact</h2>
+	<p>
+		If you want to get in touch with me regarding my work, projects or just want to say Hi, fill out the following form and hit submit.
+	</p>
+	<form action="" id="contactForm" method="post">
+		<ul>
+			<li>
+				<label for="name"> Name (required) </label></br>
+				<input autofocus="autofocus" data-message="Name cannot be blank." id="name" maxlength="256" name="name" placeholder="Your name..." required="required" size="22" type="text">
+			</li>
+			<li>
+				<label for="email"> Email (required) </label></br>
+				<input data-message="Email cannot be blank and must be in valid format." id="email" maxlength="256" name="email" placeholder="Your email..." required="required" size="22" type="email">
+			</li>
+			<li>
+				<label for="subject"> Subject (required) </label></br>
+				<input data-message="Subject cannot be blank." id="subject" maxlength="256" name="subject" placeholder="Your subject..." required="required" size="22" type="text">
+			</li>
+			<li>
+				<label for="message"> Message (required) </label></br>
+				<textarea cols="100" data-message="Message cannot be blank." id="message" name="message" placeholder="Your message..." required="required" rows="10"></textarea>
+			</li>
+			<li>
+				<button type="submit" class="button">
+					Submit
+				</button>
+			</li>
+		</ul>
+	</form>

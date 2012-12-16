@@ -1,0 +1,25 @@
+$def with (query,searchResults,next,previous,msg) 
+$var title = "Search results for query: " + query
+<h4 style="margin-bottom:10px;  ">Search Results for: $:query</h4>
+$if msg:
+	<p>
+		$msg
+	</p>
+$else:
+	$for post in searchResults:
+		<article class="post">
+			<header>
+				<h4><a href="/posts/$:post.slug">$:post.slug</a></h4> 
+			</header>
+
+			<section class="content">
+				$if len(post.content) <= 500:
+					$:post.content
+				$else:
+					$:post.content[0:499]
+			</section>
+			<div class="more">
+				<a href="/posts/$:post.slug"><b>read on</b> &raquo;</a>
+			</div>
+  
+		</article>

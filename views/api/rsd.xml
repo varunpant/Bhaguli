@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rsd version="1.0">
+  <service>
+    <engineName>Message</engineName>
+    <engineLink>https://github.com/varunpant/Message</engineLink>
+    <homePageLink>$:settings.root/</homePageLink>
+    <apis>
+      <api name="MetaWeblog" preferred="true" apiLink="$:settings.root/metaweblog.xml" blogID="$:settings.root/" />
+      <api name="BlogML" preferred="false" apiLink="$:settings.root/BlogImporter.asmx" blogID="$:settings.root/" />
+    </apis>
+  </service>
+</rsd>

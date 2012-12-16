@@ -1,0 +1,498 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<blog root-url="/" date-created="2011-08-23T08:48:38" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.blogml.com/2006/09/BlogML">
+  <title type="text"><![CDATA[Varun Pant]]></title>
+  <sub-title type="text"><![CDATA[Rambling on web ]]></sub-title>
+  <authors>
+    <author id="Varun" date-created="2011-08-23T08:48:38" date-modified="2011-08-23T08:48:38" approved="true" email="varun@varunpant.com">
+      <title type="text"><![CDATA[Varun]]></title>
+    </author>
+  </authors>
+  <extended-properties>
+    <property name="CommentModeration" value="Anonymous" />
+    <property name="SendTrackback" value="Yes" />
+  </extended-properties>
+  <categories>
+    <category id="be275e51-38c1-4ccf-bbf4-f9b9e2682091" date-created="0001-01-01T00:00:00" date-modified="0001-01-01T00:00:00" approved="true" parentref="0">
+      <title type="text"><![CDATA[Fun]]></title>
+    </category>
+    <category id="e7aba8d3-5545-4126-b6ba-f98ce8513309" date-created="0001-01-01T00:00:00" date-modified="0001-01-01T00:00:00" approved="true" parentref="0">
+      <title type="text"><![CDATA[General]]></title>
+    </category>
+    <category id="7886288f-5260-4127-b5ee-a44380e4d6a3" date-created="0001-01-01T00:00:00" date-modified="0001-01-01T00:00:00" approved="true" parentref="0">
+      <title type="text"><![CDATA[Programming]]></title>
+    </category>
+    <category id="a4ecdde7-996d-49a1-9b7c-eebd28653399" date-created="0001-01-01T00:00:00" date-modified="0001-01-01T00:00:00" approved="true" parentref="0">
+      <title type="text"><![CDATA[Utility]]></title>
+    </category>
+  </categories>
+  <posts>
+    <post id="290fe787-bf68-4540-b9ae-693c8ea9f01d" date-created="2011-01-10T23:07:00" date-modified="2011-01-26T19:24:43" approved="true" post-url="/post/2011/01/10/Web-Sockets-in-HTML-5.aspx" type="normal" hasexcerpt="true" views="0" is-published="True">
+      <title type="text"><![CDATA[Web Sockets in HTML 5]]></title>
+      <content type="text"><![CDATA[<p>HTML5 <a href="http://en.wikipedia.org/wiki/WebSockets" target="_blank">WebSockets</a>, defines a full-duplex communication channel that operates through a single socket over the web. <strong>WebSocket</strong> is not just another incremental enhancement to conventional HTTP communications, it represents a large advance, especially for real-time, <a href="http://en.wikipedia.org/wiki/Event-driven_programming" target="_blank">event driven</a> web applications.</p>
+<p>Normally when a browser visits a web page, an HTTP request is sent to the web server that hosts that page. The web server acknowledges this request and sends back the response. In many cases&mdash;for example, for stock prices, news reports, ticket sales, traffic patterns, medical device readings, and so on&mdash;the response could be stale by the time the browser renders the page.</p>
+<p>Current attempts to provide real-time web applications largely revolve around polling and other server-side push technologies, the most notable of which is "<a href="http://en.wikipedia.org/wiki/Comet_(programming)" target="_blank">Comet</a>", which delays the completion of an HTTP response to deliver messages to the client.</p>
+<p>There are many open source implementation of Http Push, one of my personal favorite is <a href="http://www.ape-project.org/" target="_blank">APE</a> i.e. Ajax Push Engine.</p>
+<blockquote>
+<p><strong><span style="text-decoration: underline;">Update</span></strong>: Microsoft has added a small demo of HTML5 support , it comes as an extension to WCF (Windows communication foundation) .The links can be found <a href="http://connect.microsoft.com/VisualStudio/feedback/details/520742/use-of-html-5-web-sockets-for-wcf-duplex-services-and-silverlight" target="_blank">here</a>, <a href="http://html5labs.interoperabilitybridges.com/media/1165/readme.htm" target="_blank">here</a> and <a href="http://msdn.microsoft.com/en-us/magazine/ee309879.aspx" target="_blank">here</a>.</p>
+</blockquote>
+<p>There is still no news of Microsoft adding this feature in IE 9, at the time of writing this post, only Firefox 4, Chrome 4, Safari 5 and Opera 11 and above have support for this feature.</p>
+<blockquote>
+<p><strong><span style="text-decoration: underline;">Update</span></strong>: Due to security flaw Firefox and Opera have disabled their support for Web Sockets, more info can be found <a href="http://www.webmonkey.com/2010/12/security-flaws-force-firefox-opera-to-turn-off-websockets/" target="_blank">here</a>.</p>
+</blockquote>
+<p>For those interested here is the <a href="http://tools.ietf.org/html/draft-ietf-hybi-thewebsocketprotocol-03" target="_blank">draft</a> , official <a href="http://websocket.org/" target="_blank">website</a>, the <a href="http://dev.w3.org/html5/websockets/" target="_blank">API</a> and a nice <a href="http://net.tutsplus.com/tutorials/javascript-ajax/start-using-html5-websockets-today/" target="_blank">tutorial</a>.</p>
+<p>To establish a WebSocket connection, the client and server upgrade from the HTTP protocol to the WebSocket protocol during their initial handshake, as shown in below, note that this connection description represents draft 76 of the protocol, the connection handshake may change during future specification revisions.</p>
+<blockquote>
+<p><strong><span style="text-decoration: underline;">From client to server</span>:         <br /></strong>GET /demo HTTP/1.1       <br />Host: example.com       <br />Connection: Upgrade       <br />Sec-WebSocket-Key2: 12998 5 Y3 1 .P00       <br />Sec-WebSocket-Protocol: sample       <br />Upgrade: WebSocket       <br />Sec-WebSocket-Key1: 4@1 46546xW%0l 1 5       <br />Origin: <a href="http://example.com">http://example.com</a> <br />[8-byte security key]</p>
+<p><br /><strong><span style="text-decoration: underline;">From server to client</span></strong>:       <br />HTTP/1.1 101 WebSocket Protocol Handshake       <br />Upgrade: WebSocket       <br />Connection: Upgrade       <br />WebSocket-Origin: <a href="http://example.com">http://example.com</a> <br />WebSocket-Location: ws://example.com/demo       <br />WebSocket-Protocol: sample       <br />[16-byte hash response]</p>
+</blockquote>
+<p>I was trying to find an alternative which is comfortable enough to be used in my pet projects in Microsoft Tech stack, at the time of writing I couldn&rsquo;t any so I here it is my very own HTTP Web Socket server written in .Net via C#, this implementation does Use WCF and is basically written using HTTP Async Sockets, the client API is pretty straight forward</p>
+<p>&nbsp;</p>
+<pre class="brush: c-sharp;">var url = "ws://localhost:999&rdquo;;
+
+&nbsp;&nbsp;&nbsp; var&nbsp;&nbsp; sock= new WebSocket(url); 
+&nbsp;&nbsp;&nbsp; sock.onopen = function() { log("open");&nbsp;&nbsp; sock.send("Message&hellip;.");&nbsp;&nbsp;&nbsp; } 
+&nbsp;&nbsp;&nbsp; sock.onmessage = function(e) { log(e.data); } 
+&nbsp;&nbsp;&nbsp; sock.onclose = function(e) {&nbsp;&nbsp; log(" closed");&nbsp; }</pre>
+<p>&nbsp;</p>
+<p>and that's it!!!</p>
+<p>I plan to add some more examples and perhaps come with something more concrete later, till then I hope you enjoy using this code sample and enhancing it as you desire.</p>
+<p>A complete example in c# can be downloaded from <span style="color: #888888;"><a title="Download" rel="nofollow" href="http://www.varunpant.com/demo/WebSocketServer.rar" target="_blank">here</a></span></p>]]></content>
+      <post-name type="text"><![CDATA[Web Sockets in HTML 5]]></post-name>
+      <excerpt type="text"><![CDATA[HTML5 WebSockets, defines a full-duplex communication channel that operates through a single socket over the web. WebSocket is not just another incremental enhancement to conventional HTTP communications, it represents a large advance, especially for real-time, event driven web applications. Normally when a browser visits a web page, an HTTP request is sent to the web server that hosts that page. The web server acknowledges this request and sends back the response.]]></excerpt>
+      <authors>
+        <author ref="Varun" />
+      </authors>
+      <categories>
+        <category ref="7886288f-5260-4127-b5ee-a44380e4d6a3" />
+      </categories>
+      <tags>
+        <tag ref="WebSockets" />
+        <tag ref="HttpPush" />
+        <tag ref=".Net" />
+        <tag ref="JavaScript" />
+      </tags>
+      <comments>
+        <comment id="9fed9fba-757e-48cd-bc9b-aadb6b8a8be3" parentid="00000000-0000-0000-0000-000000000000" date-created="2011-01-24T06:39:01" date-modified="2011-01-24T06:39:01" approved="true" user-name="este" user-email="este@gmail.com" user-ip="193.171.35.39" user-url="">
+          <title type="text"><![CDATA[re: Web Sockets in HTML 5]]></title>
+          <content type="text"><![CDATA[Hi !
+
+I have implemented Websockets in Python. On the server side, I basically have : 
+
+while 1:
+    ssock, saddr = s.accept()
+    print('Connected by', saddr)
+    data = ssock.recv(4096)
+    print(data)
+
+On the client side, I do what you do and create a Websocket :
+
+var   sock= new WebSocket(url);
+
+Just after that, &quot;data&quot; receives some information from &quot;ssock.recv(4096)&quot;. Is this normal ?
+
+Thanks for your help
+]]></content>
+        </comment>
+        <comment id="30be57fe-2c77-47e6-b7da-3e2b4e0fdb20" parentid="9fed9fba-757e-48cd-bc9b-aadb6b8a8be3" date-created="2011-01-24T20:51:34" date-modified="2011-01-24T20:51:34" approved="true" user-name="varun" user-email="varun@varunpant.com" user-ip="122.163.24.241" user-url="http://www.varunpant.com/">
+          <title type="text"><![CDATA[re: Web Sockets in HTML 5]]></title>
+          <content type="text"><![CDATA[Hi este, after handshake the server sends back a receipt of successful connection i.e [16-byte hash response], how ever this does not invoke onmessage event, if your referring to the sample JavaScript code, you will see that I immediately send &quot; Thank you for.........&quot;, which is echoed back, you might be getting a hit on you onmessage event because of a response triggered by this message.
+
+Hope this helps!]]></content>
+        </comment>
+        <comment id="b8a1697e-de1a-4908-860a-45bccdef3229" parentid="00000000-0000-0000-0000-000000000000" date-created="2011-01-25T03:18:47" date-modified="2011-01-25T03:18:47" approved="true" user-name="este" user-email="este@gmail.com" user-ip="193.171.35.39" user-url="">
+          <title type="text"><![CDATA[re: Web Sockets in HTML 5]]></title>
+          <content type="text"><![CDATA[Be sure you correct the link (http://www.varunpant.com/demo/WebSocketServer.rar) and the page number (36 not 76) :-)]]></content>
+        </comment>
+        <comment id="819e81c4-9318-4707-bfa6-a4e507532025" parentid="30be57fe-2c77-47e6-b7da-3e2b4e0fdb20" date-created="2011-01-25T03:19:37" date-modified="2011-01-25T03:19:37" approved="true" user-name="este" user-email="este@gmail.com" user-ip="193.171.35.39" user-url="">
+          <title type="text"><![CDATA[re: Web Sockets in HTML 5]]></title>
+          <content type="text"><![CDATA[Thank you Varun.]]></content>
+        </comment>
+        <comment id="bde3e251-0d1f-46f9-b895-ec6372bb27a3" parentid="b8a1697e-de1a-4908-860a-45bccdef3229" date-created="2011-01-28T22:08:08" date-modified="2011-01-28T22:08:08" approved="true" user-name="este" user-email="este@gmail.com" user-ip="193.171.35.39" user-url="">
+          <title type="text"><![CDATA[re: Web Sockets in HTML 5]]></title>
+          <content type="text"><![CDATA[Sorry about this comment on the page number. I mistook page and draft :-(]]></content>
+        </comment>
+        <comment id="54ca5749-16d6-442a-ba41-1a0f089f86d5" parentid="00000000-0000-0000-0000-000000000000" date-created="2011-07-17T01:18:45" date-modified="2011-07-17T01:18:45" approved="true" user-name="pet insurance" user-email="ajrwestrop@gmail.com" user-ip="41.84.152.38" user-url="http://1stpetinsurance.co.uk/">
+          <title type="text"><![CDATA[re: Web Sockets in HTML 5]]></title>
+          <content type="text"><![CDATA[Thanks, i will use this code and see how it works]]></content>
+        </comment>
+      </comments>
+      <trackbacks />
+    </post>
+    <post id="58771339-07b8-4e5e-ae35-5e20ea083563" date-created="2010-09-25T14:55:00" date-modified="2011-01-02T13:52:39" approved="true" post-url="/post/2010/09/25/Water-Simulation.aspx" type="normal" hasexcerpt="true" views="0" is-published="True">
+      <title type="text"><![CDATA[Water Simulation]]></title>
+      <content type="text"><![CDATA[<p>Its been a while since my last post, had been busy with office work&hellip;sigh!!!</p>
+<p>Anyways, I was poking around web to come up with interesting water simulation techniques, as you could see in many games these days, so I did find a reference to an old C-based technique, after little refinement, what I have is a water simulation which uses a very old algorithm based on two <a href="http://en.wikipedia.org/wiki/Heightmap" target="_blank">heightmaps</a>.</p>
+<p>As always it&rsquo;s a&nbsp; grid based animation which divides the screen into&nbsp; a mesh(more slices better this simulation looks), I use a jagged array in c# to do this (load it with a texture of 640 X 480 dimension ), to animate I use another array of same dimensions, now to make every thing move I kinda do something like this</p>
+<pre class="brush: c-sharp;">for (int y = 1; y &lt; 479; y++) {
+    for (int x = 1; x &lt; 639; x++) {
+        this.currentState[x, y] = ((this.oldState[(x - 1), y] + this.oldState[(x + 1), y] + this.oldState[x, (y + 1)] + this.oldState[x, (y - 1)] &gt;&gt; 1) - this.currentState[x, y]);
+        this.currentState[x, y] -= (this.currentState[x, y] &gt;&gt; 7);
+        int data = (short)(1024 - this.currentState[x, y]);
+        int a = (x - 640) * data / 1024 + 640;
+        int b = (y - 480) * data / 1024 + 480;
+        if (a &gt;= 640) a = 639;
+        if (a &lt; 0) a = 0;
+        if (b &gt;= 480) b = 479;
+        if (b &lt; 0) b = 0;
+        int textOffset = x + y * 640;
+        bmp.Pixels[textOffset] = texture[(a + b * 640)];
+    } </pre>
+<p>The choice of display entity(acting as viewport and display canvas) is <a href="http://msdn.microsoft.com/en-us/library/system.windows.media.imaging.writeablebitmap.aspx" target="_blank">WritableBitmap</a>,&nbsp; and rest is pretty much fun to play.</p>
+<p>Click <a href="http://varunpant.com/demo/Silverlight/water.html" target="_blank">here</a> to watch demo.</p>
+<p>
+<object width="100%" height="100%" type="application/x-silverlight-2" data="data:application/x-oleobject;base64,QfXq3+HzJEysrJnDBxUISgAJAADYEwAA2BMAAAwAAAB3AGgAaQB0AGUAAAAAAAAAAAAAAAAAAABkAAAAaAB0AHQAcAA6AC8ALwB2AGEAcgB1AG4AcABhAG4AdAAuAGMAbwBtAC8AZABlAG0AbwAvAFMAaQBsAHYAZQByAGwAaQBnAGgAdAAvAEYAbAB1AGkAZABlAGUALgB4AGEAcAAAADwAAAAAAAAAJgAAAG8AbgBTAGkAbAB2AGUAcgBsAGkAZwBoAHQARQByAHIAbwByAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAABAAAAAAAAAAAAAAAAAAAAGAAAADQALgAwAC4ANQAwADgAMgA2AC4AMAAAAAoAAAB0AHIAdQBlAAAAAAAAAAAAAAAAAAAA">
+<param name="source" value="http://varunpant.com/demo/Silverlight/Fluidee.xap" />
+<param name="onError" value="onSilverlightError" />
+<param name="background" value="white" />
+<param name="minRuntimeVersion" value="4.0.50826.0" />
+<param name="autoUpgrade" value="true" />
+</object>
+</p>]]></content>
+      <post-name type="text"><![CDATA[Water Simulation]]></post-name>
+      <excerpt type="text"><![CDATA[As always it’s a  grid based animation which divides the screen into  a mesh(more slices better this simulation looks), I use a jagged array in c# to do this (load it with a texture of 640 X 480 dimension ), to animate I use another array of same dimensions, now to make every thing move]]></excerpt>
+      <authors>
+        <author ref="Varun" />
+      </authors>
+      <categories>
+        <category ref="7886288f-5260-4127-b5ee-a44380e4d6a3" />
+      </categories>
+      <tags>
+        <tag ref="Silverlight" />
+        <tag ref="Animation" />
+        <tag ref="Simulation" />
+        <tag ref="Water" />
+      </tags>
+      <comments>
+        <comment id="b369f2c9-49e3-462f-a1a4-bf92ad494efa" parentid="00000000-0000-0000-0000-000000000000" date-created="2010-09-26T18:43:45" date-modified="2010-09-26T18:43:45" approved="true" user-name="Abhay" user-email="abhaykumar1@hotmail.com" user-ip="221.135.132.142" user-url="">
+          <title type="text"><![CDATA[re: Water Simulation]]></title>
+          <content type="text"><![CDATA[Awesome]]></content>
+        </comment>
+        <comment id="5f2aba34-d352-4719-af49-ef36913b6f40" parentid="00000000-0000-0000-0000-000000000000" date-created="2010-09-26T20:25:10" date-modified="2010-09-26T20:25:10" approved="true" user-name="Aditya Mahara" user-email="aditya.mahara@pb.com" user-ip="221.135.132.142" user-url="">
+          <title type="text"><![CDATA[re: Water Simulation]]></title>
+          <content type="text"><![CDATA[This is cool.....]]></content>
+        </comment>
+        <comment id="6bc8506f-fe45-4ba0-9007-ece960395b52" parentid="00000000-0000-0000-0000-000000000000" date-created="2010-10-09T20:03:49" date-modified="2010-10-09T20:03:49" approved="true" user-name="Admin" user-email="varun@varun.com" user-ip="122.163.24.131" user-url="http://varunpant.com/">
+          <title type="text"><![CDATA[re: Water Simulation]]></title>
+          <content type="text"><![CDATA[Got Published here
+http://www.silverlightshow.net/showcase/Silverlight-Water-Simulation-using-WritableBitmap.aspx
+
+and here
+
+http://10rem.net/blog/2010/09/27/windows-client-developer-roundup-043-for-9-27-2010?utm_source=feedburner&amp;utm_medium=feed&amp;utm_campaign=Feed:+PeteBrown+(Pete+Brown's+Blog]]></content>
+        </comment>
+      </comments>
+      <trackbacks>
+        <trackback id="7997f61c-15fe-4939-a0fe-336cbced40d6" date-created="2010-09-26T13:09:06" date-modified="2010-09-26T13:09:06" approved="true" url="http://10rem.net/blog/2010/09/27/windows-client-developer-roundup-043-for-9-27-2010">
+          <title type="text"><![CDATA[Windows Client Developer Roundup 043 for 9/27/2010
+
+This is Windows Client Developer roundup #43. The Windows Client Developer Roundup aggregates information]]></title>
+        </trackback>
+      </trackbacks>
+    </post>
+    <post id="634ba8e9-03a8-427b-8ff7-0001cd789ad4" date-created="2010-07-03T18:58:00" date-modified="2011-01-02T13:53:46" approved="true" post-url="/post/2010/07/03/Liquid-Particles.aspx" type="normal" hasexcerpt="true" views="0" is-published="True">
+      <title type="text"><![CDATA[Liquid Particles]]></title>
+      <content type="text"><![CDATA[<p>After ages of constantly being one of the most used browser as well as a serious pain in Butt!!! IE is finally about to mature into something good and perhaps a useful software , with its support to <a href="http://www.quirksmode.org/blog/archives/2010/06/more_ie9_goodne.html" target="_blank">most</a> of the standards being used today , IE will join back the league of web 3.0 browsers, hopefully very soon</p>
+<p>So I was going through various experiments done with Canvas and came across a great example on <a href="http://spielzeugz.de/html5/liquid-particles.html" target="_blank">Liquid Particle physics simulation</a>, which amazingly is written in JavaScript and Canvas element, I was so mesmerized by the application that I had to port it to <a href="http://msdn.microsoft.com/en-us/bb187358.aspx" target="_blank">SilverLight</a>, using <a href="http://msdn.microsoft.com/en-us/library/system.windows.media.imaging.writeablebitmap.aspx" target="_blank">WritableBitmap</a>.</p>
+<p><a href="http://www.varunpant.com/image.axd?picture=lqdPrticle.png"><img style="display: inline; border-width: 0px;" title="Liquid Particle" src="http://www.varunpant.com/image.axd?picture=lqdPrticle_thumb.png" border="0" alt="Liquid Particle" width="584" height="324" /></a></p>
+<p>Click <a href="http://varunpant.com/demo/ParticlesSilverLight.html" target="_blank">here</a> to watch Demo.</p>]]></content>
+      <post-name type="text"><![CDATA[Liquid Particles]]></post-name>
+      <excerpt type="text"><![CDATA[After ages of constantly being one of the most used browser as well as a serious pain in Butt!!! IE is finally about to mature into something good and perhaps a useful software , with its support to most of the standards being used today , IE will join back the league of web 3.0 browsers]]></excerpt>
+      <authors>
+        <author ref="Varun" />
+      </authors>
+      <categories>
+        <category ref="7886288f-5260-4127-b5ee-a44380e4d6a3" />
+        <category ref="be275e51-38c1-4ccf-bbf4-f9b9e2682091" />
+      </categories>
+      <tags>
+        <tag ref="Silverlight" />
+        <tag ref="HTML5" />
+        <tag ref="Particles" />
+        <tag ref="Simulation" />
+      </tags>
+      <comments>
+        <comment id="04fab7bc-4dcd-4c2b-8ca0-a470f9d744ea" parentid="00000000-0000-0000-0000-000000000000" date-created="2010-07-04T19:09:20" date-modified="2010-07-04T19:09:20" approved="true" user-name="Avdhesh Kumar Singh" user-email="avdhesh_k_s@yahoo.co.in" user-ip="122.160.6.196" user-url="">
+          <title type="text"><![CDATA[re: Liquid Particles]]></title>
+          <content type="text"><![CDATA[Very Good.]]></content>
+        </comment>
+      </comments>
+      <trackbacks />
+    </post>
+    <post id="28865f54-7923-4328-b7c0-6a442ae22c76" date-created="2010-06-29T00:51:00" date-modified="2011-01-02T13:54:49" approved="true" post-url="/post/2010/06/29/Image-Carousel.aspx" type="normal" hasexcerpt="true" views="0" is-published="True">
+      <title type="text"><![CDATA[Image Carousel]]></title>
+      <content type="text"><![CDATA[<p>Here is another of many JavaScript based Image Carousel, I had seen many similar to these made in SilverLight and Flash, I came across a wonderful <a href="http://www.shinedraw.com/animation-effect/flash-vs-silverlight-image-carousel/" target="_blank">carousel</a> made in SilverLight sometimes back which was very fluid in behavior and could easily be customized and configured to take various shape and form.</p>
+<p><a href="http://www.varunpant.com/image.axd?picture=carousel.png"><img style="display: inline; border: 0px;" title="carousel" src="http://www.varunpant.com/image.axd?picture=carousel_thumb.png" border="0" alt="carousel" width="474" height="274" /></a></p>
+<p>I have managed to port it to JavaScript, it works best on chrome or FF, hope this would be fun to play with.</p>
+<p>Enjoy!!!</p>
+<p>Click <a href="http://varunpant.com/Demo/Carousel.html" target="_blank">here</a> to watch it in action.</p>]]></content>
+      <post-name type="text"><![CDATA[Image Carousel]]></post-name>
+      <excerpt type="text"><![CDATA[The description is used as the meta description as well as shown in the related posts. It is recommended that you write a description, but not mandatory]]></excerpt>
+      <authors>
+        <author ref="Varun" />
+      </authors>
+      <categories>
+        <category ref="7886288f-5260-4127-b5ee-a44380e4d6a3" />
+        <category ref="be275e51-38c1-4ccf-bbf4-f9b9e2682091" />
+        <category ref="a4ecdde7-996d-49a1-9b7c-eebd28653399" />
+      </categories>
+      <tags>
+        <tag ref="JavaScript" />
+        <tag ref="Carousel" />
+        <tag ref="Fluid" />
+        <tag ref="Css" />
+      </tags>
+      <comments>
+        <comment id="74dd2133-6e9f-49d2-8646-14c57c910039" parentid="00000000-0000-0000-0000-000000000000" date-created="2010-06-29T14:27:49" date-modified="2010-06-29T14:27:49" approved="true" user-name="Sumit Arora" user-email="sumit.arora@pb.com" user-ip="122.160.6.196" user-url="">
+          <title type="text"><![CDATA[re: Image Carousel]]></title>
+          <content type="text"><![CDATA[Nice work! Keep it up!]]></content>
+        </comment>
+        <comment id="a4a1370d-9279-4ac8-abb3-9facd6a119be" parentid="00000000-0000-0000-0000-000000000000" date-created="2010-07-17T16:38:08" date-modified="2010-07-17T16:38:08" approved="true" user-name="Rick" user-email="afganman@hotmail.com" user-ip="91.103.91.33" user-url="">
+          <title type="text"><![CDATA[re: Image Carousel]]></title>
+          <content type="text"><![CDATA[Really interesting article, I was wondering if you ever thought about doing some specific to gaming, such as MMO gaming?]]></content>
+        </comment>
+        <comment id="f57c954a-6556-4e09-97fb-c0ff39733d97" parentid="00000000-0000-0000-0000-000000000000" date-created="2010-07-28T07:31:01" date-modified="2010-07-28T07:31:01" approved="true" user-name="John Templeton" user-email="97Wallen@ymail.com" user-ip="173.208.78.35" user-url="http://lafemmesuprema.com/forums/profile.php?mode=viewprofile&amp;u=20590&amp;sid=adc5f5b7e88ae8a296f7f54b97a087b4">
+          <title type="text"><![CDATA[re: Image Carousel]]></title>
+          <content type="text"><![CDATA[Thanks for this brilliant article. I am delighted after reading this. Thank you!]]></content>
+        </comment>
+      </comments>
+      <trackbacks />
+    </post>
+    <post id="a99888f0-7217-48cf-b396-5743063a310f" date-created="2010-06-18T18:23:00" date-modified="2011-01-02T13:55:41" approved="true" post-url="/post/2010/06/18/I-Phone-Scroll.aspx" type="normal" hasexcerpt="true" views="0" is-published="True">
+      <title type="text"><![CDATA[I-Phone Scroll]]></title>
+      <content type="text"><![CDATA[<p>One of the amazing features of i-phone user interface is smooth panning/scrolling animation.</p>
+<p>I-phone &ldquo;List Scrolling&rdquo; perhaps gives a very funky and usable List &ndash;View to its users and allows them to scroll up and down the interface without any need of a scroll bar.</p>
+<p>This interface is&nbsp; sensitive to the push speed and also shows traces of resilience.</p>
+<p>I have been experimenting with various techniques to bring out similar effect using JavaScript and HTML, I am not quite sure if this would be useful in its present form but with some modifications may be this sample could prove its worthiness somewhere.</p>
+<p><a href="http://www.varunpant.com/image.axd?picture=iphone_1.png"><img style="display: inline; border-width: 0px;" title="iphone" src="http://www.varunpant.com/image.axd?picture=iphone_thumb_1.png" border="0" alt="iphone" width="164" height="244" /></a></p>
+<p>The code involved is also very little.</p>
+<pre><pre class="brush: js;">var scroll = {
+    down: false,
+    verticalOffset: -5,
+    ym: 0,
+    decay: .93,
+    mdDecay: 0.27,
+    speedOffset: 0.4,
+    sprinessOffset: 0.08,
+    _velocity: 0,
+    _mouseDownY: 0,
+    $: function (id) {
+        return document.getElementById(id);
+    },
+    /* --- events --- */
+    addEvent: function (o, e, f) {
+        if (window.addEventListener) o.addEventListener(e, f, false);
+        else if (window.attachEvent) r = o.attachEvent('on' + e, f);
+    },
+    init: function () {
+        setInterval(scroll.compositiontarget_rendering, 30);
+
+        scroll.verticalOffset = scroll.$('scrollMe').offsetTop;
+
+        scroll.addEvent(scroll.$('scrollMe'), 'mousedown', function (e) {
+            scroll.$('scrollMe').style.cursor = 'move';
+            if (!scroll.down) {
+                scroll.down = true;
+                scroll.ym = e.clientY;
+                scroll._mouseDownY = scroll.$('scrollMe').offsetTop;
+            }
+
+            if (e.preventDefault) e.preventDefault();
+        });
+
+        scroll.addEvent(scroll.$('scrollMe'), 'mouseup', function () {
+            scroll.down = false;
+            scroll.$('scrollMe').style.cursor = 'default';
+
+        });
+
+
+        scroll.addEvent(scroll.$('scrollMe'), 'mousemove', function (e) {
+            if (scroll.down) {
+                if (scroll.canScrollFurther()) scroll.$('scrollMe').style.top = (scroll._mouseDownY + (e.clientY - scroll.ym)) + 'px';
+                // update the velocity
+                scroll._velocity += ((e.clientY - scroll.ym) * scroll.speedOffset);
+            }
+
+        });
+
+        document.onselectstart = function () {
+            return false;
+        }
+    },
+    compositiontarget_rendering: function () {
+        // decay the velocity
+        if (scroll.down) {
+            scroll._velocity *= scroll.mdDecay;
+        } else {
+            scroll._velocity *= scroll.decay;
+
+            var screenHeight = scroll.$('screen').offsetHeight;
+            var scrolRegionHeight = scroll.$('scrollMe').offsetHeight;
+
+            var y = scroll.$('scrollMe').offsetTop - scroll.verticalOffset;
+            var spriness = 0;
+
+            // calculate a spriness when the text moves over the canvas size
+            if (y &gt; 0) {
+                spriness = -y * scroll.sprinessOffset;
+            } else if (y + scrolRegionHeight &lt; screenHeight) {
+                spriness = ((screenHeight - scrolRegionHeight - y) * scroll.sprinessOffset);
+            }
+            if (!scroll.canScrollFurther()) {
+                scroll._velocity = -(scroll._velocity / 8)
+            }
+            scroll.$('scrollMe').style.top = (y + scroll._velocity + spriness) + 'px';
+        }
+
+
+    },
+    canScrollFurther: function () {
+        var _top = scroll.$('scrollMe').offsetTop;
+        var bottom = _top + scroll.$('scrollMe').offsetHeight;
+        var center = (scroll.$('screen').offsetTop + scroll.$('screen').offsetHeight) / 2;
+        return (_top &lt; center &amp;&amp; bottom &gt; center);
+    }
+
+
+};</pre>
+</pre>
+<p><a href="http://varunpant.com/Demo/Demo.html" target="_blank">Click here to watch demo</a></p>]]></content>
+      <post-name type="text"><![CDATA[I-Phone Scroll]]></post-name>
+      <excerpt type="text"><![CDATA[I-phone “List Scrolling” perhaps gives a very funky and usable List –View to its users and allows them to scroll up and down the interface without any need of a scroll bar]]></excerpt>
+      <authors>
+        <author ref="Varun" />
+      </authors>
+      <categories>
+        <category ref="7886288f-5260-4127-b5ee-a44380e4d6a3" />
+        <category ref="be275e51-38c1-4ccf-bbf4-f9b9e2682091" />
+      </categories>
+      <tags>
+        <tag ref="IPhone Scroll" />
+        <tag ref="JavaScript" />
+        <tag ref="Animation" />
+      </tags>
+    </post>
+    <post id="98a11713-d8a9-4495-8701-5fe684d867f2" date-created="2010-06-15T20:09:00" date-modified="2011-01-02T14:05:01" approved="true" post-url="/post/2010/06/15/Notepad2b2b-with-Python.aspx" type="normal" hasexcerpt="true" views="0" is-published="True">
+      <title type="text"><![CDATA[Notepad++ with Python]]></title>
+      <content type="text"><![CDATA[<p>After reading an excellent article by <a href="http://weblogs.asp.net/rashid/" target="_blank">Kazi Manzur Rashid</a> on setting up a development environment for Iron Ruby using <a href="http://notepad-plus-plus.org/" target="_blank">Notepad++</a> , I was immediately struck with an idea of using the same excellent tool with Python 2.6.</p>
+<p>Now don&rsquo;t get me wrong here, theoretically there is nothing wrong with IDLE, but having a light weight IDE for those who don&rsquo;t want to use <a href="http://pydev.org/" target="_blank">Pydev</a> plugin for <a href="http://www.aptana.com/" target="_blank">Aptana</a> or <a href="http://www.eclipse.org/" target="_blank">Eclipse</a>, I think Notepad++ is indeed a nice little dev tool.</p>
+<p>One of the amazing capabilities in Notepad++ is that one can assign shortcuts like(Cntrl + F5) and debug/interpret python script with python interpreter.</p>
+<p>In order to Run python script from Run menu in Notepad++ you must Open Run &gt; Run (or simply press F5), in the window that opens</p>
+<p>&nbsp;<a href="http://www.varunpant.com/image.axd?picture=notepad_Run.png"><img style="display: inline; border-width: 0px;" title="notepad_Run" src="http://www.varunpant.com/image.axd?picture=notepad_Run_thumb.png" border="0" alt="notepad_Run" width="400" height="279" /></a></p>
+<p>add&nbsp;</p>
+<pre class="brush: c-sharp;">cmd /K "$(FULL_CURRENT_PATH)"</pre>
+<p>&nbsp;</p>
+<p>this command assumes that Python path i.e.</p>
+<p>&nbsp;</p>
+<pre class="brush: c-sharp;">c:/PythonXX/Python.exe</pre>
+<p>&nbsp;</p>
+<p>or</p>
+<p>&nbsp;</p>
+<pre class="brush: c-sharp;">c:/PythonXX/Pythonw.exe</pre>
+<p>&nbsp;</p>
+<p>&nbsp;(If you don&rsquo;t like console) is&nbsp; added in your Environment variables , if not you could&nbsp; either go to:</p>
+<pre class="brush: c-sharp;">My Computer -&gt; Properties -&gt; Advanced -&gt; Environment Variables -&gt; System Variables -&gt; PATH &ndash;&gt; Edit</pre>
+<p>&nbsp;&nbsp; and add this path there or use</p>
+<pre>cmd /k C:\Python26\python.exe </pre>
+<p>then press save after putting in a friendly name and assigning a key board shortcut for example CNTRL + F5.</p>
+<p>You could now see your entry in Run drop down menu at the last, incase you want to edit or remove this go to Settings&gt;Shortcut mapper and press Run Commands tab and then right click to choose options from context menu and your all set.</p>
+<p>Hope this helps :)</p>]]></content>
+      <post-name type="text"><![CDATA[Notepad++ with Python]]></post-name>
+      <excerpt type="text"><![CDATA[The description is used as the meta description as well as shown in the related posts. It is recommended that you write a description, but not mandatory]]></excerpt>
+      <authors>
+        <author ref="Varun" />
+      </authors>
+      <categories>
+        <category ref="e7aba8d3-5545-4126-b6ba-f98ce8513309" />
+        <category ref="be275e51-38c1-4ccf-bbf4-f9b9e2682091" />
+      </categories>
+      <tags>
+        <tag ref="Python" />
+        <tag ref="NotePad++" />
+      </tags>
+    </post>
+    <post id="fea8ed08-b220-4d3c-9923-b136102631fd" date-created="2010-06-15T11:12:00" date-modified="2011-01-02T13:56:57" approved="true" post-url="/post/2010/06/15/Data-URI-and-IE.aspx" type="normal" hasexcerpt="true" views="0" is-published="True">
+      <title type="text"><![CDATA[Data URI and IE]]></title>
+      <content type="text"><![CDATA[<p>Few days ago I was experimenting with a nifty technique of embedding images in web pages by base64 encoding them first and then using&nbsp; a standard known as <a href="http://en.wikipedia.org/wiki/Data_URI_scheme" target="_blank">Data URI Scheme</a>, which basically defines a method of assigning a &lsquo;src&rsquo; of an image tag as a base64 serialized string, like this:</p>
+<pre class="brush: c-sharp;">background - image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAUBAMAAACKWYuOAAAAMFBMVEX///92dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnYvD4PNAAAAD3RSTlMAACTkfhvbh3iEewTtxBIFliR3AAAAUklEQVQY02NgIBMwijgKCgrAef5fkHnz/y9E4kn+/4XEE6z/34jEE///A4knev7zAwQv7L8RQk40/7MiggeUQpjJff+zIpINykbIbhFSROIRDQAWUhW2oXLWAQAAAABJRU5ErkJggg==");</pre>
+<p>Although this technique could save some server round trips, however Microsoft ver. (IE &lt; 8). does not support this scheme even though its a <a href="http://tools.ietf.org/html/rfc2397" target="_blank">standard</a>, which then makes this technique unfavorable to use as its not cross browser.</p>
+<p>I was trying to find a work around and came across <a href="http://www.phpied.com/mhtml-when-you-need-data-uris-in-ie7-and-under/" target="_blank">MHTML hack</a> which is not an elegant approach especially for dynamic solutions and is also not supported by Microsoft any more.</p>
+<p>I found an interesting <a href="http://dean.edwards.name/weblog/2005/06/base64-ie/" target="_blank">article</a> by Dean Edwards, which suggested in IE &lt;8 scenarios a request could be send back with base64 encoded data as a query string to server, where a server module would then de-serialize the image and write it back in response:</p>
+<p>Client Side:</p>
+<pre class="brush: js;">function urlEncode(str) {
+        str = escape(str);
+        str = str.replace(new RegExp('\\+', 'g'), '%2B');
+
+        return str.replace(new RegExp('%20', 'g'), '+');
+    }
+
+    function assign() {
+        document.getElementById("img1").src = "Handler.ashx?q=" + urlEncode("iVBORw0KGgoAAAANSUhEUgAAABkAAAAUBAMAAACKWYuOAAAAMFBMVEX///92dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnYvD4PNAAAAD3RSTlMAACTkfhvbh3iEewTtxBIFliR3AAAAUklEQVQY02NgIBMwijgKCgrAef5fkHnz/y9E4kn+/4XEE6z/34jEE///A4knev7zAwQv7L8RQk40/7MiggeUQpjJff+zIpINykbIbhFSROIRDQAWUhW2oXLWAQAAAABJRU5ErkJggg==");
+    }</pre>
+<p><br />and on the server side one can use a generic http Handler like this</p>
+<pre class="brush: c-sharp;">ublic class Handler: IHttpHandler
+
+{
+    public void ProcessRequest(HttpContext context)
+
+    {
+
+
+        context.Response.ContentType = "image/gif";
+        try {
+            string data = context.Request.QueryString["q"];
+            byte[] todecode_byte = Convert.FromBase64String(data);
+            context.Response.BinaryWrite(todecode_byte);
+
+        } catch (Exception e) { //Log      }
+        }
+
+    }</pre>
+<p>The only thing to note here is to URLEncode the string before sending it to avoid <em>FormatException</em> .</p>
+<p>This is not by any means an elegant solution and will work only for small images, as bigger images will serialize into large string chunks and browsers limits urls to 2083 characters, but I just thought writing a c# version of this approach would be interesting. :)</p>]]></content>
+      <post-name type="text"><![CDATA[Data URI and IE]]></post-name>
+      <excerpt type="text"><![CDATA[Few days ago I was experimenting with a nifty technique of embedding images in web pages by base64 encoding them first and then using  a standard known as Data URI Scheme, which basically defines a method of assigning a ‘src’ of an image tag as a base64 serialized string]]></excerpt>
+      <authors>
+        <author ref="Varun" />
+      </authors>
+      <categories>
+        <category ref="7886288f-5260-4127-b5ee-a44380e4d6a3" />
+        <category ref="a4ecdde7-996d-49a1-9b7c-eebd28653399" />
+      </categories>
+      <tags>
+        <tag ref="web" />
+        <tag ref="Data URI" />
+        <tag ref=".Net" />
+      </tags>
+    </post>
+    <post id="a5b6e41b-ff51-4c68-8c1f-dc9a19754481" date-created="2010-06-12T18:00:00" date-modified="2011-01-02T13:57:30" approved="true" post-url="/post/2010/06/12/Hello-World!.aspx" type="normal" hasexcerpt="true" views="0" is-published="True">
+      <title type="text"><![CDATA[Hello World!]]></title>
+      <content type="text"><![CDATA[<p>After&nbsp; long period of wait, here it is my very first and personal Blogging Space.</p>
+<p>I have been hoping to go online for about an year now, but then there always were events happening around to prevent this immense desire of mine.</p>
+<p>I intend to blog about .net in general , JavaScript, Silverlight, Animation and maybe some other cool stuff .</p>
+<p>Hope to update this space again.</p>
+<p>Cheers!!!</p>
+<p>-- Varun</p>]]></content>
+      <post-name type="text"><![CDATA[Hello World!]]></post-name>
+      <excerpt type="text"><![CDATA[After  long period of wait, here it is my very first and personal Blogging Space.
+
+]]></excerpt>
+      <authors>
+        <author ref="Varun" />
+      </authors>
+      <categories>
+        <category ref="e7aba8d3-5545-4126-b6ba-f98ce8513309" />
+      </categories>
+      <tags>
+        <tag ref="General" />
+      </tags>
+      <comments>
+        <comment id="378ed859-8610-489a-85cc-74e55267c72b" parentid="00000000-0000-0000-0000-000000000000" date-created="2010-06-14T16:31:27" date-modified="2010-06-14T16:31:27" approved="true" user-name="Anuj" user-email="anujkamra@gmail.com" user-ip="122.160.6.196" user-url="http://www.anujkamra.com/">
+          <title type="text"><![CDATA[re: Hello World!]]></title>
+          <content type="text"><![CDATA[Good start. Best of luck :)]]></content>
+        </comment>
+      </comments>
+      <trackbacks />
+    </post>
+  </posts>
+</blog>

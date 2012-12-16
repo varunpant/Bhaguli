@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
+  <ShortName>$:settings.blog_title</ShortName>
+  <Description>An open sourcepython and web.py powered blogging engine</Description>
+  <Image height="16" width="16" type="image/vnd.microsoft.icon">$:settings.root/static/ico/favicon.ico</Image>
+  <Url type="text/html" template="$:settings.root/search?q={searchTerms}" />
+</OpenSearchDescription>

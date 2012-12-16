@@ -1,0 +1,18 @@
+$def with (page)
+$var title = page.title
+<article class="post">
+	<header>
+		<h4><a href="/pages/$:page.slug">$:page.title</a></h4>
+		<div class="date">
+			$:page.published_at.strftime("%B %d, %Y")
+		</div>
+	</header>
+
+	<section class="content">
+		$:page.content
+	</section>
+	<div class="more">
+		<a href="/pages/$:page.slug"><b>read on</b> &raquo;</a>
+	</div>
+
+</article>

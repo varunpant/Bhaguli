@@ -1,0 +1,74 @@
+$def with (post)
+$var title  ="Posts"
+
+<div class="span12">
+	<ul class="breadcrumb">
+		<li>
+			<a href="#">Administration</a><span class="divider">/</span>
+		</li>
+		<li>
+			<a href="#">Posts</a><span class="divider">/</span>
+		</li>
+		<li>
+			<a href="#">Edit Post</a><span class="divider">/</span>
+		</li>
+		<li class="active">
+			$:post.slug
+		</li>
+	</ul>
+	<form id="frmPost" name="frmPost" method="post" action = "" class="form-horizontal">
+
+		<div class="control-group">
+			<label class="control-label" for="title">TITLE</label>
+			<div class="controls">
+				<input tabindex="1" class="span8" type="text" name="title" id="title" placeholder="Title..." class="box" autofocus="true" value = "$:post.title" />
+			</div>
+		</div>
+
+		<div class="control-group">
+			<label class="control-label" for="slug">SLUG</label>
+			<div class="controls">
+				<input tabindex="2" class="span8" type="text" name="slug" id="slug" placeholder="Slug..." class="box" value = "$:post.slug" AUTOCOMPLETE="OFF" />
+			</div>
+		</div>
+		
+		<div class="control-group">
+			<label class="control-label" for="published_at">PUBLISHED ON</label>
+			<div class="controls">
+				<input tabindex="4" class="span8" type="datetime" name="published_at" id="published_at" placeholder="Published on..." class="box" value = "$:post.published_at.strftime("%B %d, %Y")" />
+			</div>
+		</div>
+		
+		<div class="control-group">
+			<label class="control-label" for="tags">TAGS</label>
+			<div class="controls">
+				<input tabindex="5" class="span8" type="text" name="tags" id="tags" placeholder="Tags..." class="box" value = "$', '.join([tag.title for tag in post.tags if tag.title.strip()])" />
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="content">CONTENT</label>
+			<div class="controls">
+				<textarea class="span8" tabindex="3" name="content" id="content" rows="20" cols="150" class="box" placeholder = " Content...">$post.content</textarea>
+			</div>
+		</div>
+		 
+		<div class="control-group">
+			<label class="control-label" for="excerpt">EXCERPT</label>
+			<div class="controls">
+				<textarea tabindex="6" class="span8" name="excerpt" id="excerpt" rows="10" cols="150"   class="box" placeholder = " Excerpt...">$:post.excerpt</textarea>
+			</div>
+		</div>
+		
+		<div class="form-actions">
+		 
+		<input name="submit" type="submit" id="submit" tabindex="7" class="btn btn-success btn-large" value="SAVE" />
+			&nbsp; or &nbsp;
+		<input name="cancel" type="button" id="cancel" tabindex="8" onClick="location.href='/admin/posts/1'"  class="btn btn-danger btn-large" value="CANCEL" />
+	    </div>
+
+	</form>
+ 
+			 
+		 
+
+</div>

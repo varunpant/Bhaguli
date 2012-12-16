@@ -1,0 +1,24 @@
+$def with (posts,nextLink, previousLink)
+$var title = settings.blog_title
+ 
+$for post in posts:
+	 	<article class="post">
+	      <header>
+	        <h4><a href="/posts/$:post.slug" title="$:post.title">$:post.title</a></h4>
+	        <div class="date">$:post.published_at.strftime("%B %d, %Y")</div>
+	      </header>
+	      <section class="content">
+	      $:post.excerpt
+	      </section>
+	      <div class="more">
+	      	<a href="$:post.slug/#comments" title="Comment on $:post.title">5 Comments</a> &nbsp;&nbsp;&nbsp;
+	      	<a href="/posts/$:post.slug"><b>read on</b> &raquo;</a>
+	      </div> 
+		</article>
+	
+<div id="post-nextprev" class="clearfix">
+	$if previousLink:
+		<div id="post-next" > <a class="btn btn-inverse" href="$:previousLink" rel="prev">« More recent articles</a></div>
+	$if nextLink:
+		<div id="post-prev" ><a class="btn btn-inverse" href="$:nextLink" rel="next">Previous articles »</a></div>
+</div>
