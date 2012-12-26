@@ -207,13 +207,15 @@ class Contact:
 		return render.contact(None, msg)
 
 class Search:
-	def GET(self):
-		user_data = web.input()
-		q = user_data.q
-		p = user_data.page 
-		result = search_service.search(q)
-		print result
+	def GET(self):	 
+		q = web.input().q
+		page = safe_number(web.input(page="1").page) 
+		result = search_service.search(q)		
 		msg = None
-		next = ''
-		previous = ''
-		return render.search(q,result,next,previous,msg)
+		page_count = total_page(50 - blog_settings.posts_in_home, blog_settings.items_per_page)		
+		nextLink = previousLink = None
+		if page < page_count:
+			nextLink = "/search?q=%s&page=%s"%(q,str(page + 1)) 
+		if page > 1 :
+			previousLink = "/search?q=%s&page=%s"%(q,str(page - 1)) 
+		return render.search(q,result,nextLink,previousLink,msg)
