@@ -1,28 +1,41 @@
-$def with (query,searchResults,nextLink,previousLink,msg) 
+$def with (query,count,searchResults,nextLink,previousLink,msg) 
 $var title = "Search results for query: " + query
-<h4 style="margin-bottom:10px;  ">Search Results for: $:query</h4>
+<h4 style="margin-bottom:10px;  ">Search Results for: <em>$:query</em> &nbsp; [$:count]</h4>
 $if msg:
 	<p>
 		$msg
 	</p>
 $else:
-	$for post in searchResults:
-		<article class="post">
-			<header>
-				<h4><a href="/posts/$:post.slug">$:post.slug</a></h4> 
-			</header>
-
-			<section class="content">
-				$if len(post.content) <= 500:
-					$:post.content
-				$else:
-					$:post.content[0:499]
-			</section>
-			<div class="more">
-				<a href="/posts/$:post.slug"><b>read on</b> &raquo;</a>
-			</div>
-  
-		</article>
+	$for result in searchResults:
+		$if result.ispost:
+			<article class="post">
+				<header>
+					<h4><a href="/posts/$:result.slug">$:result.title</a></h4> 
+				</header>
+	
+				<section class="content">
+					$if len(result.content) <= 500:
+						$:result.content
+					$else:
+						$:result.content[0:499]
+				</section>
+				<div class="more">
+					<a href="/posts/$:result.slug"><b>read on</b> &raquo;</a>
+				</div>  
+			</article>
+		$else:
+			<article class="post">
+				<header>
+					<h4><a href="/$:result.slug">$:result.title</a></h4> 
+				</header>	
+				<section class="content">
+					 
+				</section>
+				<div class="more">
+					<a href="/$:result.slug"><b>read on</b> &raquo;</a>
+				</div>  
+			</article>
+		
 <div id="post-nextprev" class="clearfix">
 	$if previousLink:
 		<div id="post-next" > <a class="btn btn-inverse" href="$:previousLink" rel="prev">« More recent articles</a></div>
