@@ -1,5 +1,5 @@
 import  web, calendar
-from services import shared_helper, post_service,tag_service,page_service, settings_service,search_service
+from services import shared_helper, post_service, tag_service, page_service, settings_service, search_service
 
 
 ###############################################################################
@@ -63,10 +63,10 @@ class Topic:
 			count = post_service.count_published_by_tag(tag.slug)
 			if count < 1:
 				return notfound("No post with this tag was found!")
-			offset = start_index(page,blog_settings.items_per_page)
+			offset = start_index(page, blog_settings.items_per_page)
 			posts = post_service.find_published_by_tag(tag.slug, offset, blog_settings.items_per_page)
-			title = "Topic: " + tag.title  + "(" + str(count) +")"
-			page_count = total_page(count,blog_settings.items_per_page)
+			title = "Topic: " + tag.title + "(" + str(count) + ")"
+			page_count = total_page(count, blog_settings.items_per_page)
 			nextLink = previousLink = None
 			if page < page_count:
 				nextLink = "/archives/" + str(page + 1) 
@@ -79,7 +79,10 @@ class Topic:
 class Archives:
 	def GET(self):
 		posts = post_service.find_recent(blog_settings.items_per_page)
-		archives = post_service.get_archives()
+		_archives = post_service.get_archives()
+		archives = []
+		for archive in _archives:
+			archives.append({'full_month':calendar.month_name[archive.month],'month':archive.month, 'year':archive.year, 'posts_count':archive.posts_count})
 		return render.archive(posts, archives)
 
 class ArchivePage:
@@ -210,12 +213,20 @@ class Search:
 	def GET(self):	 
 		q = web.input().q
 		page = safe_number(web.input(page="1").page) 
-		result = search_service.search(q)		
+		offset = start_index(page, blog_settings.items_per_page) + blog_settings.posts_in_home			
+		count = safe_number(search_service.getCount(q)[0])
+		result = []
 		msg = None
-		page_count = total_page(50 - blog_settings.posts_in_home, blog_settings.items_per_page)		
-		nextLink = previousLink = None
-		if page < page_count:
-			nextLink = "/search?q=%s&page=%s"%(q,str(page + 1)) 
-		if page > 1 :
-			previousLink = "/search?q=%s&page=%s"%(q,str(page - 1)) 
-		return render.search(q,result,nextLink,previousLink,msg)
+		nextLink = previousLink = None		
+		if count > 0:
+			result = search_service.search(q, offset, blog_settings.items_per_page)
+			page_count = total_page(count - blog_settings.posts_in_home, blog_settings.items_per_page)	 
+			if page < page_count:
+				nextLink = "/search?q=%s&page=%s" % (q, str(page + 1)) 
+			if page > 1 :
+				previousLink = "/search?q=%s&page=%s" % (q, str(page - 1)) 
+		else:
+			msg = "No results were found for query \" " + q + " \""
+		
+		
+		return render.search(q, result, nextLink, previousLink, msg)

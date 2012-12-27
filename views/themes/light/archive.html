@@ -16,9 +16,8 @@ $for post in posts:
 <h4>Archive</h4>
 
 <ul id="monthly">
-$for post in archives:
+$for archive in archives:
 	 <li>
-           <a href="/archives/1/$:post.year/$:post.month" rel="directory">$:post.month  $:post.year &nbsp;&nbsp;($:post.posts_count)</a>
+           <a href="/archives/1/$:archive['year']/$:archive['month']" rel="directory">$:archive['full_month']  $:archive['year'] &nbsp;&nbsp;($:archive['posts_count'])</a>
      </li>
-
 </ul>

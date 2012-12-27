@@ -5,7 +5,7 @@ from services import search_service
 from models import createSchema, dropSchema, executeRaw
 
 
-class TagServiceQueryingTestCase(unittest.TestCase):
+class SearchServiceQueryingTestCase(unittest.TestCase):
     
     def setUp(self): 
         
@@ -24,14 +24,24 @@ class TagServiceQueryingTestCase(unittest.TestCase):
                
         
     def test_search(self):
-        results = self.service.search('hello') 
+        results = self.service.search('hello',0,5) 
         self.assertEqual(len(results), 3)        
-        results = self.service.search('sup')        
+        results = self.service.search('sup', 0, 5)        
         self.assertEqual(len(results), 1)
-        results = self.service.search('World')        
+        results = self.service.search('World',0,5)        
         self.assertEqual(len(results), 4)
-        results = self.service.search('post')        
+        results = self.service.search('post',0,5)        
         self.assertEqual(len(results), 4)
+     
+    def test_search_count(self):         
+        results = self.service.getCount('hello')        
+        self.assertEqual(results[0], 3)        
+        results = self.service.getCount('sup')        
+        self.assertEqual(results[0], 1)
+        results = self.service.getCount('World')        
+        self.assertEqual(results[0], 4)
+        results = self.service.getCount('post')        
+        self.assertEqual(results[0], 4)
         
 if __name__ == '__main__':    
     unittest.main()
