@@ -1,8 +1,13 @@
-$def with (settings)
+$def with (settings,msg)
 $var title  ="Blog Settings"
-<div class="span12">
+	<div class="span12">
+	$if msg == True:
+		<div class="alert alert-success">Settings successfully updated</div> 
+	$elif msg is not False:
+		<div class="alert alert-error">$msg</div>
 
-	<form id="edit-profile" class="form-horizontal">
+		
+	<form id="edit-profile" class="form-horizontal" method="POST">
 		<div class="row">
 			<div class="span6">
 				<legend>
@@ -90,7 +95,7 @@ $var title  ="Blog Settings"
 				<div class="control-group">
 					<label class="control-label" for="user_bio">Biography</label>
 					<div class="controls">
-						<textarea tabindex="6"   class="span4" name="user_bio" id="user_bio" rows="10" cols="100" maxlength ="2048" placeholder = " Bio..." value = "$:settings.user_bio" ></textarea>
+						<textarea tabindex="6"   class="span4" name="user_bio" id="user_bio" rows="10" cols="100" maxlength ="2048" placeholder = " Bio..."   >$:settings.user_bio</textarea>
 					</div>
 				</div>
 			</div>
@@ -122,7 +127,7 @@ $var title  ="Blog Settings"
 				<div class="control-group">
 					<label class="control-label" for="bing_app_id">App Id</label>
 					<div class="controls">
-						<input type="text" class="span2"  name="bing_app_id" id="bing_app_id" maxlength = "64" placeholder="App Id..." value = "$:settings.bing_app_id" required/>
+						<input type="text" class="span2"  name="bing_app_id" id="bing_app_id" maxlength = "64" placeholder="App Id..." value = "$:settings.bing_app_id" />
 
 					</div>
 				</div>
@@ -144,7 +149,12 @@ $var title  ="Blog Settings"
 					<label class="control-label" for="disqus_short_name">Short name</label>
 					<div class="controls">
 						<input type="text"  class="span2" name="disqus_short_name" id="disqus_short_name" maxlength = "256" placeholder="Short name..." value = "$:settings.disqus_short_name" />
-
+					</div>					
+				</div>
+				<div class="control-group">
+				<label class="control-label" for="disqus_url">Discuss Url</label>
+					<div class="controls">
+						<input type="text"  class="span2" name="disqus_url" id="disqus_url" maxlength = "256" placeholder="Discuss Url..." value = "$:settings.disqus_url" />
 					</div>
 				</div>
 

@@ -94,8 +94,9 @@ class ArchivePage:
 		if count < 0:
 			return notfound("No archived posts were found.")
 		offset = start_index(page, blog_settings.items_per_page)
-		posts = post_service.get_published(offset, blog_settings.items_per_page)
-		page_count = total_page(count - blog_settings.posts_in_home, blog_settings.items_per_page)
+		limit = blog_settings.items_per_page
+		posts = post_service.get_published(offset, limit)
+		page_count = total_page(count, limit)
 		nextLink = previousLink = None
 		if page < page_count:
 			nextLink = "/archives/" + str(page + 1) 
@@ -115,9 +116,10 @@ class ArchivePageYear:
 		count = post_service.count_published()
 		if count < 0:
 			return notfound("No archived posts were found.")
-		offset = start_index(page, blog_settings.items_per_page)		 
-		posts = post_service.find_published_by_year(year, offset, blog_settings.items_per_page)
-		page_count = total_page(count - blog_settings.posts_in_home, blog_settings.items_per_page)
+		offset = start_index(page, blog_settings.items_per_page)
+		limit = blog_settings.items_per_page		 
+		posts = post_service.find_published_by_year(year, offset, limit)
+		page_count = total_page(count,limit)
 		nextLink = previousLink = None
 		if page < page_count:
 			nextLink = "/archives/" + str(page + 1) 
@@ -139,9 +141,10 @@ class ArchivePageYearMonth:
 		count = post_service.count_published()
 		if count < 0:
 			return notfound("No archived posts were found.")
-		offset = start_index(page, blog_settings.items_per_page)		 
-		posts = post_service.find_published_by_year_and_month(safe_year, safe_month, offset, blog_settings.items_per_page)
-		page_count = total_page(count - blog_settings.posts_in_home, blog_settings.items_per_page)
+		offset = start_index(page, blog_settings.items_per_page)
+		limit = blog_settings.items_per_page		 
+		posts = post_service.find_published_by_year_and_month(safe_year, safe_month, offset, limit)
+		page_count = total_page(count, limit)
 		nextLink = previousLink = None
 		if page < page_count:
 			nextLink = "/archives/" + str(page + 1) 
@@ -166,9 +169,10 @@ class ArchivePageYearMonthDay:
 		count = post_service.count_published()
 		if count < 0:
 			return notfound("No archived posts were found.")
-		offset = start_index(page, blog_settings.items_per_page)		 
-		posts = post_service.find_published_by_year_month_and_day(safe_year, safe_month, safe_day, offset, blog_settings.items_per_page)
-		page_count = total_page(count - blog_settings.posts_in_home, blog_settings.items_per_page)
+		offset = start_index(page, blog_settings.items_per_page)
+		limit = blog_settings.items_per_page		 
+		posts = post_service.find_published_by_year_month_and_day(safe_year, safe_month, safe_day, offset,limit)
+		page_count = total_page(count, limit)
 		nextLink = previousLink = None
 		if page < page_count:
 			nextLink = "/archives/" + str(page + 1) 
@@ -213,14 +217,15 @@ class Search:
 	def GET(self):	 
 		q = web.input().q
 		page = safe_number(web.input(page="1").page) 
-		offset = start_index(page, blog_settings.items_per_page) 			
+		offset = start_index(page, blog_settings.items_per_page) 
+		limit = blog_settings.items_per_page			
 		count = safe_number(search_service.getCount(q)[0])
 		result = []
 		msg = None
 		nextLink = previousLink = None		
 		if count > 0:
-			result = search_service.search(q, offset, blog_settings.items_per_page)
-			page_count = total_page(count - blog_settings.posts_in_home, blog_settings.items_per_page)	 
+			result = search_service.search(q, offset, limit)
+			page_count = total_page(count, limit)	 
 			if page < page_count:
 				nextLink = "/search?q=%s&page=%s" % (q, str(page + 1)) 
 			if page > 1 :

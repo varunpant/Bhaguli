@@ -80,6 +80,16 @@ class SettingsServiceQueryingTestCase(unittest.TestCase):
         for k, v in vars(settings).items():
             if k in self.enteries:
                 self.assertEqual(self.enteries[k], v, 'one of the entries did not match' + str(v))
+    
+    def test_update_settings(self):
+        self.enteries["blog_title"] = "updated blog settings"
+        settings = self.service.update_settings(self.enteries)
+        self.assertIsNotNone(settings, "Failed to retrive settings object")
+        for k, v in vars(settings).items():
+            if k in self.enteries:
+                self.assertEqual(self.enteries[k], v, 'one of the entries did not match' + str(v))
+        
+        
             
 if __name__ == '__main__':
     unittest.main()
