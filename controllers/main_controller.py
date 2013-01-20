@@ -1,24 +1,23 @@
 import  web, calendar
-from services import shared_helper, post_service, tag_service, page_service, settings_service, search_service
-
+from services import shared_helper, post_service, tag_service, page_service, search_service, blog_cache, settings_service
 
 ###############################################################################
 # General Housekeeping ########################################################
 ############################################################################### 
 
-blog_settings = settings_service.get_settings()
+blog_settings = settings_service.Settings().get_settings()
 start_index = shared_helper.start_index
 safe_number = shared_helper.safe_number
 total_page = shared_helper.total_page
 
-global_settings = {'settings': blog_settings }
+global_settings = {'settings': blog_settings, 'blog_cache':blog_cache.Cache() }
 render = web.template.render('views/themes/light', base='base', globals=global_settings)
 
 def notfound(msg):	 
 	raise web.notfound(render.notfound(msg))
 
-def internalerror(msg):
-	raise web.internalerror("Bad, bad server. No donut for you.\n" + msg)
+def internalerror():
+	return web.internalerror(render.notfound("Bad, bad server. No donut for you."))
 
 ###############################################################################
 # Routes Handlers #############################################################
@@ -69,21 +68,22 @@ class Topic:
 			page_count = total_page(count, blog_settings.items_per_page)
 			nextLink = previousLink = None
 			if page < page_count:
-				nextLink = "/archives/" + str(page + 1) 
+				nextLink = "/topics/" + slug + "/" + str(page + 1) 
 			if page > 1 :
-				previousLink = "/archives/" + str(page - 1) 
+				previousLink = "/topics/" + slug + "/" + str(page - 1) 
 			return render.index(posts, nextLink, previousLink) 
 		else:
 			return notfound("The requested tag: " + slug + " was not found.")
 
 class Archives:
 	def GET(self):
-		posts = post_service.find_recent(blog_settings.items_per_page)
+		posts = post_service.get_all_published()
 		_archives = post_service.get_archives()
 		archives = []
+		tags = tag_service.get_published()
 		for archive in _archives:
-			archives.append({'full_month':calendar.month_name[archive.month],'month':archive.month, 'year':archive.year, 'posts_count':archive.posts_count})
-		return render.archive(posts, archives)
+			archives.append({'full_month':calendar.month_name[archive.month], 'month':archive.month, 'year':archive.year, 'posts_count':archive.posts_count})
+		return render.archive(posts, tags, archives)
 
 class ArchivePage:
 	def GET(self, page):
@@ -119,7 +119,7 @@ class ArchivePageYear:
 		offset = start_index(page, blog_settings.items_per_page)
 		limit = blog_settings.items_per_page		 
 		posts = post_service.find_published_by_year(year, offset, limit)
-		page_count = total_page(count,limit)
+		page_count = total_page(count, limit)
 		nextLink = previousLink = None
 		if page < page_count:
 			nextLink = "/archives/" + str(page + 1) 
@@ -171,7 +171,7 @@ class ArchivePageYearMonthDay:
 			return notfound("No archived posts were found.")
 		offset = start_index(page, blog_settings.items_per_page)
 		limit = blog_settings.items_per_page		 
-		posts = post_service.find_published_by_year_month_and_day(safe_year, safe_month, safe_day, offset,limit)
+		posts = post_service.find_published_by_year_month_and_day(safe_year, safe_month, safe_day, offset, limit)
 		page_count = total_page(count, limit)
 		nextLink = previousLink = None
 		if page < page_count:
@@ -234,4 +234,4 @@ class Search:
 			msg = "No results were found for query \" " + q + " \""
 		
 		
-		return render.search(q,count, result, nextLink, previousLink, msg)
+		return render.search(q, count, result, nextLink, previousLink, msg)

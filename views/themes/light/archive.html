@@ -1,23 +1,42 @@
-$def with (posts,archives)
+$def with (posts,tags,archives)
 $var title = 'Archive'
+$var menu = 'Archive'
 
+<h5>Posts</h5>
+<hr>
+<ul>
+	$for post in posts:
+		<li>
+			<a target="_blank" class="taggedlink" href="/posts/$:post.slug" rel="bookmark">$:post.title</a>
+		</li>
+</ul>
 
-<h4>Recent</h4>
+<!-- list of Pages -->
+<h5>Pages</h5>
+<hr>
+<ul>
+	$for post in blog_cache.get_pages():
+		<li>
+			<a rel="bookmark" target="_blank" href="/$:post.slug">$:post.title</a>
+		</li>
+</ul>
 
-<ul id="recent">
-$for post in posts:	 
-        <li>
-            <div class="time"><i>$:post.published_at.strftime("%B %d, %Y")</i></div>
-            <a class="taggedlink" href="/posts/$:post.slug" rel="bookmark">$:post.title</a>
-        </li>
+<!-- list of categories -->
+<h5>Archives</h5>
+<hr>
+<ul>
+	$for archive in archives:
+		<li>
+			<a href="/archives/1/$:archive['year']/$:archive['month']" rel="directory">$:archive['full_month']  $:archive['year'] &nbsp;&nbsp;($:archive['posts_count'])</a>
+		</li>
+</ul>
 
-</ul>	
-
-<h4>Archive</h4>
-
-<ul id="monthly">
-$for archive in archives:
-	 <li>
-           <a href="/archives/1/$:archive['year']/$:archive['month']" rel="directory">$:archive['full_month']  $:archive['year'] &nbsp;&nbsp;($:archive['posts_count'])</a>
-     </li>
+<!-- list of tags -->
+<h5>Topics</h5>
+<hr>
+<ul>
+	$for tag in tags:
+		<li>
+			<a rel="bookmark" target="_blank" href="/topics/$:tag.slug/1">$:tag.title [$:tag.posts_count]</a>
+		</li>
 </ul>

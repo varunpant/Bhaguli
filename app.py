@@ -38,14 +38,19 @@ urls = (
 	'/admin/settings', 'controllers.admin_controller.Settings',
 	 
 	'/sitemap.xml', 'controllers.api_controller.Sitemap',
+	'/sitemap', 'controllers.api_controller.Sitemap',
+	'/sitemap.xsd', 'controllers.api_controller.Sitemap',
 	'/sitemap.xsl', 'controllers.api_controller.SitemapStyle',
 	'/rsd.xml', 'controllers.api_controller.Rsd',
 	'/rsd.axd', 'controllers.api_controller.Rsd',
 	'/wlwmanifest.xml', 'controllers.api_controller.Wlwmanifest',
 	'/metaweblog.xml', 'controllers.api_controller.Metaweblog',
 	'/feed.xml', 'controllers.api_controller.Feed',
+	'/feed', 'controllers.api_controller.Feed',
 	'/opensearch.axd', 'controllers.api_controller.Opensearch',
+	'/opensearch', 'controllers.api_controller.Opensearch',
 	'/robots.txt', 'controllers.api_controller.Robots',
+	'/robots', 'controllers.api_controller.Robots',
 	'/(.+)', 'controllers.main_controller.PageSlug'
 )
 
@@ -55,7 +60,7 @@ app = web.application(urls, globals())
 
 from controllers import main_controller
 app.notfound = main_controller.notfound
-#app.internalerror = main_controller.internalerror
+app.internalerror = main_controller.internalerror
 
 #application = app.wsgifunc()
 

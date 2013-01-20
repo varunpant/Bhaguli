@@ -8,7 +8,8 @@ from models import Post, Page
 # General Housekeeping ########################################################
 ############################################################################### 
 
-blog_settings = settings_service.get_settings()
+blog_settings =  settings_service.Settings().get_settings()
+ 
 start_index = shared_helper.start_index
 safe_number = shared_helper.safe_number
 total_page = shared_helper.total_page
@@ -256,7 +257,7 @@ class Topics:
 @requires_auth    
 class Settings:
     def GET(self):
-        settings = settings_service.get_settings()
+        settings = settings_service.Settings().get_settings()
         return render.settings(settings, False)
     
     def POST(self):

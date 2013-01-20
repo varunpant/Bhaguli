@@ -2,29 +2,7 @@
 # Settings Querying Service #######################################################
 ###############################################################################
 from models import getSession , Setting
- 
-
-class CacheFetcher:
-    def __init__(self):
-        self.cache = None
-    def fetch(self):        
-        if self.cache:
-            return self.cache
-        # Retrieve and cache
-        session = getSession()   
-        #print "############# cached #############"
-        self.cache = session.query(Setting).scalar()        
-        return self.cache
-    
-    def clear(self):
-        self.cache = None   
-
-def get_settings():     
-    return CacheFetcher().fetch()
-
-def reset():
-    CacheFetcher().clear()
-
+  
 def update_settings(settings):
     session = getSession()
     current_settings = session.query(Setting).scalar()
@@ -51,13 +29,47 @@ def update_settings(settings):
     try:        
         session.add(current_settings)
         session.commit()
-        reset();
-        return get_settings()  
+        s = Settings()
+        s.clear();
+        return s.get_settings() 
     except  Exception, e:
         print e
         return None
-        pass
         
-    
-    
+class Settings: 
+
+    class __impl: 
+        def __init__(self):
+            self.cache = None
+        def get_settings(self):        
+            if self.cache:
+                return self.cache
+            # Retrieve and cache
+            session = getSession()
+            self.cache = session.query(Setting).scalar()        
+            return self.cache
+         
+        def clear(self):            
+            self.cache = None   
+
+    # storage for the instance reference
+    __instance = None
+
+    def __init__(self):
+        """ Create Settings instance """
+        # Check whether we already have an instance
+        if Settings.__instance is None:
+            # Create and remember instance
+            Settings.__instance = Settings.__impl()
+
+        # Store instance reference as the only member in the handle
+        self.__dict__['_Singleton__instance'] = Settings.__instance
+
+    def __getattr__(self, attr):
+        """ Delegate access to implementation """
+        return getattr(self.__instance, attr)
+
+    def __setattr__(self, attr, value):
+        """ Delegate access to implementation """
+        return setattr(self.__instance, attr, value)  
     

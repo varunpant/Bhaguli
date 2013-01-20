@@ -10,7 +10,7 @@ first_cap_re = re.compile('(.)([A-Z][a-z]+)')
 all_cap_re = re.compile('([a-z0-9])([A-Z])')
 before_dot = re.compile('(metaWeblog|blogger|mt|wp)\.')
 
-blog_settings = settings_service.get_settings()
+blog_settings = settings_service.Settings().get_settings()
 global_settings = {'settings': blog_settings}
 render = web.template.render('views/api', globals=global_settings)
 
@@ -23,6 +23,7 @@ render = web.template.render('views/api', globals=global_settings)
 
 class Sitemap:
     def GET(self):
+        web.header('Content-Type', 'text/xml;charset=utf-8')
         posts = post_service.get_all_published()
         pages = page_service.get_all_published()
         tags = tag_service.get_all()
@@ -34,7 +35,8 @@ class SitemapStyle:
         return render.sitemapXsl() 
        
 class Rsd:
-    def GET(self):        
+    def GET(self):
+        web.header('Content-Type', 'text/xml;charset=utf-8')       
         return render.rsd()
     
 class Wlwmanifest:
@@ -45,18 +47,18 @@ class Metaweblog:
     def POST(self): 
         web.header('Content-Type', 'text/xml;charset=utf-8')
         xml = web.data()
-        #print xml
+        
         if xml:
             command = xmlrpclib.loads(xml)
             name = before_dot.sub("", command[1])
-            method = all_cap_re.sub(r'\1_\2', first_cap_re.sub(r'\1_\2', name)).lower() 
-            print method,":",command     
+            method = all_cap_re.sub(r'\1_\2', first_cap_re.sub(r'\1_\2', name)).lower()
             return metaweblog_service.__dict__[method](command[0])
         else:
             raise web.notfound("Invalid Post content.")
     
 class Feed:
     def GET(self):
+        web.header('Content-Type', 'text/xml;charset=utf-8')
         posts = post_service.get_all(0, blog_settings.items_per_page)
         if posts:
             return render.atom(posts)
@@ -65,6 +67,7 @@ class Feed:
         
 class Opensearch:
     def GET(self):
+        web.header('Content-Type', 'text/xml;charset=utf-8')
         return render.opensearch()
     
 class Robots:  

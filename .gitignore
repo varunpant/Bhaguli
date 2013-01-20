@@ -1,4 +1,7 @@
 *.py[co]
+blog.css
+varunpant.jpg
+BlogML.xml
 
 # Packages
 *.egg
@@ -34,4 +37,6 @@ pip-log.txt
 .idea
 .pydevproject
 node_modules
+.font-awesome
 out
+p

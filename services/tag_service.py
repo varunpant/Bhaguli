@@ -17,7 +17,7 @@ def get_all():
 
 def get_published():
         session = getSession()
-        return session.query(Tag).filter(Tag.posts.any(Post.published_at != None)).order_by(Tag.title.desc()).all()
+        return session.query(Tag).filter(Tag.posts.any(Post.published_at != None)).order_by(Tag.posts_count.desc()).all()
     
 def get_unpublished():
         session = getSession()

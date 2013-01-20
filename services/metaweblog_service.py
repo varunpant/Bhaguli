@@ -8,7 +8,7 @@ first_cap_re = re.compile('(.)([A-Z][a-z]+)')
 all_cap_re = re.compile('([a-z0-9])([A-Z])')
 before_dot = re.compile('(metaWeblog|blogger|mt|wp)\.')
 
-blog_settings = settings_service.get_settings()
+blog_settings = settings_service.Settings().get_settings()
 global_settings = {'settings': blog_settings}
 safe_number = shared_helper.safe_number
 render = web.template.render('views/api', globals=global_settings)

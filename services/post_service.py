@@ -78,7 +78,7 @@ def count_published_by_tag(slug):
 
 def get_archives():	
 	session = getSession()
-	return session.query(Archives).filter(Archives.posts_count > 0).order_by(Archives.month.desc(), Archives.year.desc()).all()
+	return session.query(Archives).filter(Archives.posts_count > 0).order_by(Archives.year.desc(),Archives.month.desc()).all()
 
 
 ###############################################################################
@@ -115,8 +115,8 @@ def update(postId, title, slug, content, published_at, excerpt, tags):
 		post.slug = shared_helper.to_url(post.slug) if isNotNull(post.slug) else shared_helper.to_url(post.title)
 		if tags is not None and len(tags)>0 :
 			tags = unique_tags(tags)
-			tags_to_remove = filter(lambda t: t not in tags,post.tags)
-			tags_to_add = filter(lambda t: not any(filter(lambda pt:pt == t,post.tags)),tags)
+			tags_to_remove = filter(lambda t: t.title.lower() not in tags,post.tags)
+			tags_to_add = filter(lambda t: not any(filter(lambda pt:pt.title.lower() == t,post.tags)),tags)
 			remove_tags(session,post, tags_to_remove)
 			add_tags(session,post, tags_to_add)
 		else:
@@ -194,7 +194,7 @@ def __commit(session,o):
 		session.commit()		
 		return True
 	except  Exception,e:
-		print e
+		raise
 		return False
 
 def __destroy(session,o):
@@ -203,6 +203,6 @@ def __destroy(session,o):
 		session.commit()		
 		return True
 	except  Exception,e:
-		print e
+		raise
 		return False
 	

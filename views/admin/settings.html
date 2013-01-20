@@ -1,4 +1,4 @@
-$def with (settings,msg)
+$def with (blog_settings,msg)
 $var title  ="Blog Settings"
 	<div class="span12">
 	$if msg == True:
@@ -16,43 +16,43 @@ $var title  ="Blog Settings"
 				<div class="control-group">
 					<label class="control-label" for="blog_title">Blog Title</label>
 					<div class="controls">
-						<input type="text" class="span4" name="blog_title" id="blog_title" placeholder="Blog Title..." value = "$:settings.blog_title" />
+						<input type="text" class="span4" name="blog_title" id="blog_title" placeholder="Blog Title..." value = "$:blog_settings.blog_title" />
 					</div>
 				</div>
 				<div class="control-group">
 					<label class="control-label" for="tag_line">Tagline</label>
 					<div class="controls">
-						<input type="text"  class="span4" name="tag_line" id="tag_line" placeholder="Tagline..." value = "$:settings.tag_line" />
+						<input type="text"  class="span4" name="tag_line" id="tag_line" placeholder="Tagline..." value = "$:blog_settings.tag_line" />
 					</div>
 				</div>
 				<div class="control-group">
 					<label class="control-label" for="meta_keywords">Metakeywords</label>
 					<div class="controls">
-						<input type="text"  class="span4"  name="meta_keywords" id="meta_keywords" placeholder="Metakeywords..." value = "$:settings.meta_keywords"  />
+						<input type="text"  class="span4"  name="meta_keywords" id="meta_keywords" placeholder="Metakeywords..." value = "$:blog_settings.meta_keywords"  />
 					</div>
 				</div>
 				<div class="control-group">
 					<label class="control-label" for="meta_description">Metadescription</label>
 					<div class="controls">
-						<input type="text"   class="span4" name="meta_description" id="meta_description" placeholder="Metadescription..." value = "$:settings.meta_description" />
+						<input type="text"   class="span4" name="meta_description" id="meta_description" placeholder="Metadescription..." value = "$:blog_settings.meta_description" />
 					</div>
 				</div>
 				<div class="control-group">
 					<label class="control-label" for="meta_description">Posts per Page</label>
 					<div class="controls">
-						<input   type="number"  class="span4"  name="items_per_page" id="items_per_page" placeholder="Posts per Page..." value = "$:settings.items_per_page" />
+						<input   type="number"  class="span4"  name="items_per_page" id="items_per_page" placeholder="Posts per Page..." value = "$:blog_settings.items_per_page" />
 					</div>
 				</div>
 				<div class="control-group">
 					<label class="control-label" for="posts_in_home">Posts in Home</label>
 					<div class="controls">
-						<input   type="number"   class="span4" name="posts_in_home" id="posts_in_home" placeholder="Posts in Home..." value = "$:settings.posts_in_home"  />
+						<input   type="number"   class="span4" name="posts_in_home" id="posts_in_home" placeholder="Posts in Home..." value = "$:blog_settings.posts_in_home"  />
 					</div>
 				</div>
 				<div class="control-group">
 					<label class="control-label" for="posts_in_home">Cache timeout</label>
 					<div class="controls">
-						<input   type="number"  class="span4"  name="cache_duration_in_seconds" id="cache_duration_in_seconds" placeholder="Cache Duration in Seconds..." value = "$:settings.cache_duration_in_seconds"  />
+						<input   type="number"  class="span4"  name="cache_duration_in_seconds" id="cache_duration_in_seconds" placeholder="Cache Duration in Seconds..." value = "$:blog_settings.cache_duration_in_seconds"  />
 					</div>
 				</div>
 
@@ -65,37 +65,37 @@ $var title  ="Blog Settings"
 				<div class="control-group">
 					<label class="control-label" for="login">Login</label>
 					<div class="controls">
-						<input type="text"   class="span4" name="login" id="login" maxlength = "128" placeholder="Login name...." value = "$:settings.login" />
+						<input type="text"   class="span4" name="login" id="login" maxlength = "128" placeholder="Login name...." value = "$:blog_settings.login" />
 					</div>
 				</div>
 				<div class="control-group">
 					<label class="control-label" for="password">Password</label>
 					<div class="controls">
-						<input type="password" class="span4" name="password" id="password" maxlength = "32" placeholder="Password..." value = "$:settings.password" required />
+						<input type="password" class="span4" name="password" id="password" maxlength = "32" placeholder="Password..." value = "$:blog_settings.password" required />
 					</div>
 				</div>
 				<div class="control-group">
 					<label class="control-label" for="user_full_name">Full Name</label>
 					<div class="controls">
-						<input type="text"  class="span4"  name="user_full_name" id="user_full_name" maxlength = "256" placeholder="Full name..." value = "$:settings.user_full_name" />
+						<input type="text"  class="span4"  name="user_full_name" id="user_full_name" maxlength = "256" placeholder="Full name..." value = "$:blog_settings.user_full_name" />
 					</div>
 				</div>
 				<div class="control-group">
 					<label class="control-label" for="user_short_name">Short Name</label>
 					<div class="controls">
-						<input type="text"   class="span4" name="user_short_name" id="user_short_name" maxlength = "256" placeholder="Short name..." value = "$:settings.user_short_name" />
+						<input type="text"   class="span4" name="user_short_name" id="user_short_name" maxlength = "256" placeholder="Short name..." value = "$:blog_settings.user_short_name" />
 					</div>
 				</div>
 				<div class="control-group">
 					<label class="control-label" for="user_email">Email</label>
 					<div class="controls">
-						<input type="email"   class="span4" name="user_email" id="user_email" maxlength = "256" placeholder="Email..." value = "$:settings.user_email" />
+						<input type="email"   class="span4" name="user_email" id="user_email" maxlength = "256" placeholder="Email..." value = "$:blog_settings.user_email" />
 					</div>
 				</div>
 				<div class="control-group">
 					<label class="control-label" for="user_bio">Biography</label>
 					<div class="controls">
-						<textarea tabindex="6" class="span4" name="user_bio" id="user_bio" rows="10" cols="100" maxlength ="2048" placeholder = " Bio..."   >$:settings.user_bio</textarea>
+						<textarea tabindex="6" class="span4" name="user_bio" id="user_bio" rows="10" cols="100" maxlength ="2048" placeholder = " Bio..."   >$:blog_settings.user_bio</textarea>
 					</div>
 				</div>
 			</div>
@@ -109,13 +109,13 @@ $var title  ="Blog Settings"
 				<div class="control-group">
 					<label class="control-label" for="google_analytics_code">Analytics code</label>
 					<div class="controls">
-						<input type="text" class="span2" name="google_analytics_code" id="google_analytics_code" placeholder="UA-XXXXXXX-X" value = "$:settings.google_analytics_code" />
+						<input type="text" class="span2" name="google_analytics_code" id="google_analytics_code" placeholder="UA-XXXXXXX-X" value = "$:blog_settings.google_analytics_code" />
 					</div>
 				</div>
 				<div class="control-group">
 					<label class="control-label" for="feed_burner_url">Feedburner Url</label>
 					<div class="controls">
-						<input type="text" class="span2"  name="feed_burner_url" id="feed_burner_url" maxlength = "1024" placeholder="Feedburner Url..." value = "$:settings.feed_burner_url" />
+						<input type="text" class="span2"  name="feed_burner_url" id="feed_burner_url" maxlength = "1024" placeholder="Feedburner Url..." value = "$:blog_settings.feed_burner_url" />
 					</div>
 				</div>
 			</div>
@@ -127,14 +127,14 @@ $var title  ="Blog Settings"
 				<div class="control-group">
 					<label class="control-label" for="bing_app_id">App Id</label>
 					<div class="controls">
-						<input type="text" class="span2"  name="bing_app_id" id="bing_app_id" maxlength = "64" placeholder="App Id..." value = "$:settings.bing_app_id" />
+						<input type="text" class="span2"  name="bing_app_id" id="bing_app_id" maxlength = "64" placeholder="App Id..." value = "$:blog_settings.bing_app_id" />
 
 					</div>
 				</div>
 				<div class="control-group">
 					<label class="control-label" for="root">Root</label>
 					<div class="controls">
-						<input type="text" class="span2"  name="root" id="root" maxlength = "256" placeholder="Root url..." value = "$:settings.root" required/>
+						<input type="text" class="span2"  name="root" id="root" maxlength = "256" placeholder="Root url..." value = "$:blog_settings.root" required/>
 					</div>
 				</div>
 
@@ -148,13 +148,13 @@ $var title  ="Blog Settings"
 				<div class="control-group">
 					<label class="control-label" for="disqus_short_name">Short name</label>
 					<div class="controls">
-						<input type="text"  class="span2" name="disqus_short_name" id="disqus_short_name" maxlength = "256" placeholder="Short name..." value = "$:settings.disqus_short_name" />
+						<input type="text"  class="span2" name="disqus_short_name" id="disqus_short_name" maxlength = "256" placeholder="Short name..." value = "$:blog_settings.disqus_short_name" />
 					</div>					
 				</div>
 				<div class="control-group">
 				<label class="control-label" for="disqus_url">Discuss Url</label>
 					<div class="controls">
-						<input type="text"  class="span2" name="disqus_url" id="disqus_url" maxlength = "256" placeholder="Discuss Url..." value = "$:settings.disqus_url" />
+						<input type="text"  class="span2" name="disqus_url" id="disqus_url" maxlength = "256" placeholder="Discuss Url..." value = "$:blog_settings.disqus_url" />
 					</div>
 				</div>
 

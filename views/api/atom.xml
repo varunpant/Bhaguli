@@ -6,7 +6,7 @@ $def with (posts)
     <link href="$:settings.root/" />
     <link href="$:settings.root/feed.xml" rel="self" />
     <id>$:settings.root/</id>
-    <rights>Copyright (c) 2011 $:settings.user_full_name. The content on this feed is licensed under Creative Commons Attribution 3.0 License.</rights>
+    <rights>Copyright (c) 2013 $:settings.user_full_name. The content on this feed is licensed under Creative Commons Attribution 3.0 License.</rights>
     <icon>$:settings.root/static/images/favicon.ico</icon>
     <updated>$:posts[0].published_at.strftime("%Y-%m-%dT%H:%M:%Sz")</updated>
     <author><name>$:settings.user_full_name</name><email>$:settings.user_email</email>
