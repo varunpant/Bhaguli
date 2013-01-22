@@ -5,7 +5,7 @@
 		$for post in posts:
 			<url>
 				<loc>$:settings.root/posts/$:post.slug</loc>
-				<lastmod>$:post.published_at.strftime("%Y-%m-%dT%H:%M:%Sz")</lastmod>
+				<lastmod>$:post.published_at.strftime("%Y-%m-%d")</lastmod>
 				<changefreq>monthly</changefreq>
 				<priority>1.0</priority>
 			</url>
@@ -14,7 +14,7 @@
 		$for page in pages:
 			<url>
 				<loc>$:settings.root/pages/$:page.slug</loc>
-				<lastmod>$:page.published_at.strftime("%Y-%m-%dT%H:%M:%Sz")</lastmod>
+				<lastmod>$:page.published_at.strftime("%Y-%m-%d")</lastmod>
 				<changefreq>yearly</changefreq>
 				<priority>0.8</priority>
 			</url>

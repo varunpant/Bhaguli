@@ -26,6 +26,10 @@ def assertLength(val, key, length, nullable):
     else:
         raise Exception("Length of field " + key + " is larger than expected " + str(length))
 
+###############################################################################
+# BASIC AUTH      #############################################################
+############################################################################### 
+
 def check_auth(username, password): 
     return username == blog_settings.login and password == blog_settings.password
 
@@ -40,14 +44,24 @@ def requires_auth(f):
         if not auth or not check_auth(username, password):
             web.header('WWW-Authenticate', 'Basic realm="admin"')
             web.ctx.status = '401 Unauthorized'
-            
+            return Unauthorized()
+         
         return f(*args, **kwargs)
+    
     return decorated
+    
+class Unauthorized():
+    def GET(self):
+        return "401 Unauthorized"
+
+    def POST(self):
+        return "401 Unauthorized"
 
 ###############################################################################
 # Routes Handlers #############################################################
 ############################################################################### 
 
+        
 @requires_auth
 class Index:
     def GET(self):
