@@ -44,21 +44,21 @@ def find_published_by_date_range(start_date, end_date):
 	session = getSession()
 	return  session.query(Post).filter(Post.published_at.between(start_date, end_date)).order_by(Post.published_at.desc()).all()
 
-def find_published_by_year(year, offset, items_per_page):	 
+def find_published_by_year(year, offset, limit):	 
 	session = getSession()
-	return  session.query(Post).filter(Post.published_at.between(str(year) + "-01-1 00:00:00", str(year) + "-12-31 00:00:00")).order_by(Post.published_at.desc()).all()
+	return  session.query(Post).filter(Post.published_at.between(str(year) + "-01-1 00:00:00", str(year) + "-12-31 00:00:00")).order_by(Post.published_at.desc()).limit(limit).all()
 
-def find_published_by_year_and_month(year, month, offset, items_per_page):	
+def find_published_by_year_and_month(year, month, offset, limit):	
 	session = getSession()
 	startDate = date(year, month, 1)	
 	endDate = date(year, month, calendar.monthrange(year, month)[1])
-	return  session.query(Post).filter(Post.published_at.between(startDate, endDate)).order_by(Post.published_at.desc()).all()
+	return  session.query(Post).filter(Post.published_at.between(startDate, endDate)).order_by(Post.published_at.desc()).limit(limit).offset(offset).all()
 
-def find_published_by_year_month_and_day(year, month, day, offset, items_per_page):
+def find_published_by_year_month_and_day(year, month, day, offset, limit):
 	session = getSession()
 	startDate = datetime(year, month, day, 0, 0, 0)
 	endDate = datetime(year, month, day, 23, 59, 59)			
-	return  session.query(Post).filter(Post.published_at.between(startDate, endDate)).order_by(Post.published_at.desc()).all()
+	return  session.query(Post).filter(Post.published_at.between(startDate, endDate)).order_by(Post.published_at.desc()).limit(limit).offset(offset).all()
 
 def count_all():
 	session = getSession()

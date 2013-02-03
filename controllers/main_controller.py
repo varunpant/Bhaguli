@@ -90,13 +90,11 @@ class ArchivePage:
 		page = safe_number(page)
 		if page < 1:
 			return notfound("The requested resource was not found on this server.Pages start from 1")
-		count = post_service.count_published()
-		if count < 0:
-			return notfound("No archived posts were found.")
-		offset = start_index(page, blog_settings.items_per_page)
+		
 		limit = blog_settings.items_per_page
+		offset = start_index(page, limit)
 		posts = post_service.get_published(offset, limit)
-		page_count = total_page(count, limit)
+		page_count = total_page(len(posts), limit)
 		nextLink = previousLink = None
 		if page < page_count:
 			nextLink = "/archives/" + str(page + 1) 
@@ -113,18 +111,15 @@ class ArchivePageYear:
 		year = safe_number(year)
 		if year <= 1990:
 			return notfound("The requested resources for year: ' " + str(year) + " ' were not found")
-		count = post_service.count_published()
-		if count < 0:
-			return notfound("No archived posts were found.")
-		offset = start_index(page, blog_settings.items_per_page)
-		limit = blog_settings.items_per_page		 
+		limit = blog_settings.items_per_page	
+		offset = start_index(page, limit)			 
 		posts = post_service.find_published_by_year(year, offset, limit)
-		page_count = total_page(count, limit)
+		page_count = total_page(len(posts), limit)
 		nextLink = previousLink = None
 		if page < page_count:
-			nextLink = "/archives/" + str(page + 1) 
+			nextLink = "/archives/" + str(page + 1) + "/" + year
 		if page > 1 :
-			previousLink = "/archives/" + str(page - 1) 
+			previousLink = "/archives/" + str(page - 1) + "/" + year 
 		return render.index(posts, nextLink, previousLink)
 	
 class ArchivePageYearMonth:
@@ -138,18 +133,17 @@ class ArchivePageYearMonth:
 		safe_month = safe_number(month)
 		if safe_month < 1 or safe_month > 12:
 			return notfound("Incorrect month ' " + str(safe_month) + " '")		 
-		count = post_service.count_published()
-		if count < 0:
-			return notfound("No archived posts were found.")
-		offset = start_index(page, blog_settings.items_per_page)
-		limit = blog_settings.items_per_page		 
+		
+		limit = blog_settings.items_per_page	
+		offset = start_index(page, limit)			 
 		posts = post_service.find_published_by_year_and_month(safe_year, safe_month, offset, limit)
-		page_count = total_page(count, limit)
+		page_count = total_page(len(posts), limit)
+		
 		nextLink = previousLink = None
 		if page < page_count:
-			nextLink = "/archives/" + str(page + 1) 
+			nextLink = "/archives/" + str(page + 1)  + "/" + year  + "/" + month
 		if page > 1 :
-			previousLink = "/archives/" + str(page - 1) 
+			previousLink = "/archives/" + str(page - 1)  + "/" + year + "/" + month
 		return render.index(posts, nextLink, previousLink)
 
 class ArchivePageYearMonthDay:
@@ -166,18 +160,16 @@ class ArchivePageYearMonthDay:
 		safe_day = safe_number(day)
 		if safe_day < 1 or safe_day > calendar.monthrange(int(year), int(month))[1]:
 			return notfound("Incorrect day: ' " + str(day) + " '")		 
-		count = post_service.count_published()
-		if count < 0:
-			return notfound("No archived posts were found.")
-		offset = start_index(page, blog_settings.items_per_page)
-		limit = blog_settings.items_per_page		 
+		
+		limit = blog_settings.items_per_page	
+		offset = start_index(page, limit) 
 		posts = post_service.find_published_by_year_month_and_day(safe_year, safe_month, safe_day, offset, limit)
-		page_count = total_page(count, limit)
+		page_count = total_page(len(posts), limit)
 		nextLink = previousLink = None
 		if page < page_count:
-			nextLink = "/archives/" + str(page + 1) 
+			nextLink = "/archives/" + str(page + 1) + "/" + year  + "/" + month + "/" + day
 		if page > 1 :
-			previousLink = "/archives/" + str(page - 1) 
+			previousLink = "/archives/" + str(page - 1) + "/" + year  + "/" + month + "/" + day
 		return render.index(posts, nextLink, previousLink)
 		
 class Contact:
