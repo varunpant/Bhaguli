@@ -108,13 +108,14 @@ class ArchivePageYear:
 		page = safe_number(page)
 		if page < 1:
 			return notfound("The requested resource was not found on this server.Pages start from 1")
-		year = safe_number(year)
+		safe_year = safe_number(year)
 		if year <= 1990:
 			return notfound("The requested resources for year: ' " + str(year) + " ' were not found")
 		limit = blog_settings.items_per_page	
 		offset = start_index(page, limit)			 
-		posts = post_service.find_published_by_year(year, offset, limit)
-		page_count = total_page(len(posts), limit)
+		posts = post_service.find_published_by_year(safe_year, offset, limit)
+		count = post_service.count_published_by_year(safe_year)
+		page_count = total_page(count, limit)
 		nextLink = previousLink = None
 		if page < page_count:
 			nextLink = "/archives/" + str(page + 1) + "/" + year
@@ -137,7 +138,8 @@ class ArchivePageYearMonth:
 		limit = blog_settings.items_per_page	
 		offset = start_index(page, limit)			 
 		posts = post_service.find_published_by_year_and_month(safe_year, safe_month, offset, limit)
-		page_count = total_page(len(posts), limit)
+		count = post_service.count_published_by_year_month(safe_year, safe_month)
+		page_count = total_page(count, limit)
 		
 		nextLink = previousLink = None
 		if page < page_count:
@@ -164,7 +166,8 @@ class ArchivePageYearMonthDay:
 		limit = blog_settings.items_per_page	
 		offset = start_index(page, limit) 
 		posts = post_service.find_published_by_year_month_and_day(safe_year, safe_month, safe_day, offset, limit)
-		page_count = total_page(len(posts), limit)
+		count = post_service.count_published_by_year_month_and_day(safe_year, safe_month,safe_day)
+		page_count = total_page(count, limit)
 		nextLink = previousLink = None
 		if page < page_count:
 			nextLink = "/archives/" + str(page + 1) + "/" + year  + "/" + month + "/" + day

@@ -76,6 +76,23 @@ def count_published_by_tag(slug):
 	session = getSession()
 	return  session.query(Post).filter(Post.published_at != None).filter(Post.tags.any(Tag.slug == slug)).count()
 
+def count_published_by_year(year):
+	session = getSession()
+	return  session.query(Post).filter(Post.published_at.between(str(year) + "-01-1 00:00:00", str(year) + "-12-31 00:00:00")).count()
+
+def count_published_by_year_month(year, month):
+	session = getSession()
+	startDate = date(year, month, 1)	
+	endDate = date(year, month, calendar.monthrange(year, month)[1])
+	return  session.query(Post).filter(Post.published_at.between(startDate, endDate)).count()
+
+def count_published_by_year_month_and_day(year, month, day):
+	session = getSession()
+	startDate = datetime(year, month, day, 0, 0, 0)
+	endDate = datetime(year, month, day, 23, 59, 59)			
+	return  session.query(Post).filter(Post.published_at.between(startDate, endDate)).count()
+
+
 def get_archives():	
 	session = getSession()
 	return session.query(Archives).filter(Archives.posts_count > 0).order_by(Archives.year.desc(),Archives.month.desc()).all()
